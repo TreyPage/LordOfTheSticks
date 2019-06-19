@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  >
+
+  <ImageView
+    android:id="@+id/imageView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:src="@drawable/lord_of_the_sticks_splash"
+    />
+
+<!--  <TextView-->
+<!--    android:id="@+id/splash_title"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:text="@string/splash_title"-->
+<!--    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintTop_toTopOf="parent"/>-->
+
+<!--  <TextView-->
+<!--    android:id="@+id/created_by"-->
+<!--    android:text="@string/created_by"-->
+
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+
+<!--    app:layout_constraintBottom_toTopOf="@id/dewitt_full_name"/>-->
+
+<!--  <TextView-->
+<!--    android:id="@+id/dewitt_full_name"-->
+<!--    android:text="@string/austin_dewitt"-->
+
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+
+
+<!--    app:layout_constraintBottom_toTopOf="@id/alexander_full_name"/>-->
+
+<!--  <TextView-->
+<!--    android:id="@+id/alexander_full_name"-->
+<!--    android:text="@string/brian_alexander"-->
+
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+
+
+<!--    app:layout_constraintBottom_toTopOf="@id/bailey_full_name"/>-->
+
+<!--  <TextView-->
+<!--    android:id="@+id/bailey_full_name"-->
+<!--    android:text="@string/john_bailey"-->
+
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+
+
+<!--    app:layout_constraintBottom_toTopOf="@id/page_full_name"-->
+<!--  />-->
+
+<!--  <TextView-->
+<!--    android:id="@+id/page_full_name"-->
+<!--    android:text="@string/trey_page"-->
+
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+
+
+<!--    app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,25 +15,34 @@ public class MenuScreen extends AppCompatActivity {
 
     FloatingActionButton playButton = findViewById(R.id.menu_play);
     FloatingActionButton settingsButton = findViewById(R.id.menu_settings);
-    FloatingActionButton helpButton = findViewById(R.id.menu_cart);
+    FloatingActionButton shopButton = findViewById(R.id.menu_cart);
+    FloatingActionButton helpButton = findViewById(R.id.menu_help);
 
     playButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Intent intent = new Intent(view.getContext(), MainActivity.class);
+        Intent intent = new Intent(view.getContext(), GamePlay.class);
         startActivity(intent);
       }
     });
     settingsButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Intent intent = new Intent(view.getContext(), MainActivity.class);
+        Intent intent = new Intent(view.getContext(), Settings.class);
+        startActivity(intent);
+      }
+    });
+    shopButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(view.getContext(), Shop.class);
         startActivity(intent);
       }
     });
     helpButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
+        // TODO should give a pop up or snackbar of some kind with how to play.
         Intent intent = new Intent(view.getContext(), MainActivity.class);
         startActivity(intent);
       }

@@ -11,6 +11,18 @@
     android:supportsRtl="true"
     android:theme="@style/Theme.AppCompat.NoActionBar"
     tools:ignore="GoogleAppIndexingWarning">
+    <activity android:name=".Shop">
+    </activity>
+    <activity
+      android:label="@string/title_activity_settings"
+      android:name=".Settings"
+      android:parentActivityName=".MenuScreen">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="edu.cnm.deepdive.lordofthesticks.MenuScreen"/>
+    </activity>
+    <activity android:name=".GamePlay">
+    </activity>
     <activity android:name=".MenuScreen">
     </activity>
     <activity
@@ -18,7 +30,7 @@
       android:name=".LoginActivity">
     </activity>
     <activity
-      android:name=".Splash"
+      android:name=".view.Splash"
       android:screenOrientation="landscape"
       tools:ignore="ExtraText">
       >

@@ -49,7 +49,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toRightOf="@id/menu_play"
     app:srcCompat="@drawable/menu_cart"
-    app:layout_constraintRight_toRightOf="@id/menu_help"
+    app:layout_constraintRight_toLeftOf="@id/menu_help"
     app:layout_constraintTop_toBottomOf="@id/menu_text"
     />
 

@@ -10,24 +10,36 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.AppCompat.NoActionBar"
-    tools:ignore="GoogleAppIndexingWarning">
-    <activity android:name=".Shop">
+    tools:ignore="GoogleAppIndexingWarning"
+    android:screenOrientation="landscape"
+    >
+    <activity android:name=".Shop"
+      android:screenOrientation="landscape"
+      >
     </activity>
     <activity
       android:label="@string/title_activity_settings"
       android:name=".Settings"
-      android:parentActivityName=".MenuScreen">
+      android:parentActivityName=".MenuScreen"
+      android:screenOrientation="landscape"
+      >
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value="edu.cnm.deepdive.lordofthesticks.MenuScreen"/>
     </activity>
-    <activity android:name=".GamePlay">
+    <activity android:name=".GamePlay"
+      android:screenOrientation="landscape"
+      >
     </activity>
-    <activity android:name=".MenuScreen">
+    <activity android:name=".MenuScreen"
+      android:screenOrientation="landscape"
+      >
     </activity>
     <activity
       android:label="@string/title_activity_login"
-      android:name=".LoginActivity">
+      android:name=".LoginActivity"
+      android:screenOrientation="landscape"
+      >
     </activity>
     <activity
       android:name=".view.Splash"

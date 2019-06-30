@@ -1,8 +1,8 @@
 package edu.cnm.deepdive.lordofthesticks.view;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 import edu.cnm.deepdive.lordofthesticks.LoginActivity;
 import edu.cnm.deepdive.lordofthesticks.R;
 
@@ -18,12 +18,10 @@ public class Splash extends AppCompatActivity {
         try {
           // Thread will sleep for 5 seconds
           sleep(5*1000);
-
           // After 5 seconds redirect to another intent
           Intent intent = new Intent(getBaseContext(), LoginActivity.class);
           startActivity(intent);
-
-          //Remove activity
+          //Switch activity
           finish();
         } catch (Exception e) {
           // Do nothing?? maybe

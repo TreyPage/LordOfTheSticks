@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   package="edu.cnm.deepdive.lordofthesticks"
-  android:screenOrientation="landscape">
+  android:screenOrientation="landscape"
   >
+
 
   <application
     android:allowBackup="true"
@@ -14,13 +15,18 @@
     android:supportsRtl="true"
     android:theme="@style/Theme.AppCompat.NoActionBar"
     tools:ignore="GoogleAppIndexingWarning">
-    <activity android:name=".LoginActivity">
+    <activity android:name=".LoginActivity"
+      android:screenOrientation="landscape"
+      >
     </activity>
-    <activity android:name=".ProfileActivity">
+    <activity android:name=".ProfileActivity"
+      android:screenOrientation="landscape"
+      >
     </activity>
     <activity
       android:name=".Shop"
-      android:screenOrientation="landscape">
+      android:screenOrientation="landscape"
+      >
     </activity>
     <activity
       android:label="@string/title_activity_settings"
@@ -61,7 +67,6 @@
   </application>
   <uses-permission android:name="android.permission.READ_PROFILE"/>
   <uses-permission android:name="android.permission.READ_CONTACTS"/>
-
   <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
 </manifest>

@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     editTextEmail = findViewById(R.id.editTextEmail);
     editTextPassword = findViewById(R.id.editTextPassword);
     buttonSignIn = findViewById(R.id.buttonSignin);
-    textViewSignup = findViewById(R.id.textViewSignin);
+    textViewSignup = findViewById(R.id.textViewSignUp);
 
     progressDialog = new ProgressDialog(this);
 
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     if (view == textViewSignup) {
       finish();
-      startActivity(new Intent(this, MainActivity.class));
+      startActivity(new Intent(this, RegisterActivity.class));
     }
   }
 }

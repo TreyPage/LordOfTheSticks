@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  package="edu.cnm.deepdive.lordofthesticks">
+  package="edu.cnm.deepdive.lordofthesticks"
+  android:screenOrientation="landscape">
+  >
 
   <application
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
+    android:screenOrientation="landscape"
     android:supportsRtl="true"
     android:theme="@style/Theme.AppCompat.NoActionBar"
-    tools:ignore="GoogleAppIndexingWarning"
-    android:screenOrientation="landscape"
-    >
-    <activity android:name=".Shop"
-      android:screenOrientation="landscape"
-      >
+    tools:ignore="GoogleAppIndexingWarning">
+    <activity android:name=".LoginActivity">
+    </activity>
+    <activity android:name=".ProfileActivity">
+    </activity>
+    <activity
+      android:name=".Shop"
+      android:screenOrientation="landscape">
     </activity>
     <activity
       android:label="@string/title_activity_settings"
       android:name=".Settings"
       android:parentActivityName=".MenuScreen"
-      android:screenOrientation="landscape"
-      >
+      android:screenOrientation="landscape">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
         android:value="edu.cnm.deepdive.lordofthesticks.MenuScreen"/>
     </activity>
-    <activity android:name=".GamePlay"
-      android:screenOrientation="landscape"
-      >
+    <activity
+      android:name=".GamePlay"
+      android:screenOrientation="landscape">
     </activity>
-    <activity android:name=".MenuScreen"
-      android:screenOrientation="landscape"
-      >
+    <activity
+      android:name=".MenuScreen"
+      android:screenOrientation="landscape">
     </activity>
     <activity
       android:label="@string/title_activity_login"
-      android:name=".LoginActivity"
-      android:screenOrientation="landscape"
-      >
-    </activity>
-    <activity
-      android:name=".view.Splash"
-      android:screenOrientation="landscape"
-      tools:ignore="ExtraText">
-      >
+      android:name=".RegisterActivity"
+      android:screenOrientation="landscape">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -53,12 +50,18 @@
       </intent-filter>
     </activity>
     <activity
+      android:name=".view.Splash"
+      android:screenOrientation="landscape"
+      tools:ignore="ExtraText">
+      >
+    </activity>
+    <activity
       android:name=".MainActivity"
       android:screenOrientation="landscape"/>
   </application>
-  <uses-permission android:name="android.permission.READ_CONTACTS"/>
-  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-
   <uses-permission android:name="android.permission.READ_PROFILE"/>
+  <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
 </manifest>

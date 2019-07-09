@@ -43,7 +43,7 @@ public class MenuScreen extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         // TODO should give a pop up or snackbar of some kind with how to play.
-        Intent intent = new Intent(view.getContext(), MainActivity.class);
+        Intent intent = new Intent(view.getContext(), ProfileActivity.class);
         startActivity(intent);
       }
     });

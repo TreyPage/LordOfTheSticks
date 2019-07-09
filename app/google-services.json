@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "656839351493",
+    "firebase_url": "https://lord-of-the-sticks.firebaseio.com",
+    "project_id": "lord-of-the-sticks",
+    "storage_bucket": "lord-of-the-sticks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656839351493:android:ded6854fb4eeb1ca",
+        "android_client_info": {
+          "package_name": "edu.cnm.deepdive.lordofthesticks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656839351493-aevuk7ekve8bjlek9dbga23lu478k3k1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDNk_gEKW513qEmbIhd522ePEeX4ql_jA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656839351493-aevuk7ekve8bjlek9dbga23lu478k3k1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

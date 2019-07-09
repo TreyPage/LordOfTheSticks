@@ -7,6 +7,20 @@
   android:layout_height="match_parent"
   tools:context=".GamePlay">
 
+  <edu.cnm.deepdive.lordofthesticks.JoystickView
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:id="@+id/joystickLeft"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
+  <edu.cnm.deepdive.lordofthesticks.JoystickView
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:id="@+id/joystickRight"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
   <ImageView
     android:id="@+id/stick_figure"
     android:layout_width="100dp"

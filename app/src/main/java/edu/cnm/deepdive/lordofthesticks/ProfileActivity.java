@@ -59,7 +59,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
       //closing activity
       finish();
       //starting login activity
-      startActivity(new Intent(this, RegisterActivity.class));
+      startActivity(new Intent(this, RegisterActivity.class)
+          .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
   }
 }

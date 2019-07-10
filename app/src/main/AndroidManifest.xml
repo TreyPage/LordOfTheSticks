@@ -58,9 +58,8 @@
     <activity
       android:name=".view.Splash"
       android:screenOrientation="landscape"
-      tools:ignore="ExtraText">
-      >
-    </activity>
+      tools:ignore="ExtraText"/>
+
     <activity
       android:name=".MainActivity"
       android:screenOrientation="landscape"/>

@@ -1,18 +1,12 @@
 package edu.cnm.deepdive.lordofthesticks.viewmodel;
 
-import android.app.Application;
-import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import edu.cnm.deepdive.lordofthesticks.database.Firebase;
-import java.util.List;
 
 public class MenuViewModel extends ViewModel {
 

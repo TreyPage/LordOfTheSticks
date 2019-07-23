@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import edu.cnm.deepdive.lordofthesticks.database.DocSnippets;
+//import edu.cnm.deepdive.lordofthesticks.database.DocSnippets;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -97,8 +97,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //if the task is successful
             if (task.isSuccessful()) {
               //start the profile activity
-              DocSnippets docSnippets = new DocSnippets(mFirestore);
-              docSnippets.runAll();
+//              DocSnippets docSnippets = new DocSnippets(mFirestore);
+//              docSnippets.runAll();
               finish();
               startActivity(new Intent(getApplicationContext(), MenuScreen.class)
                   .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));

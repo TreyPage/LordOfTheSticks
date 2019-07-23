@@ -2,25 +2,16 @@ package edu.cnm.deepdive.lordofthesticks;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-
-
-import com.google.android.gms.tasks.OnCompleteListener;
+import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import edu.cnm.deepdive.lordofthesticks.viewmodel.MenuViewModel;
-import androidx.lifecycle.ViewModelProviders;
-
-import java.util.Map;
 
 
 public class MenuScreen extends AppCompatActivity {

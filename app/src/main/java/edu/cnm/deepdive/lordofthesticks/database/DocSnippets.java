@@ -1,3 +1,4 @@
+/*
 package edu.cnm.deepdive.lordofthesticks.database;
 
 import androidx.annotation.NonNull;
@@ -46,9 +47,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+*/
 /**
  * Snippets for inclusion in documentation.
- */
+ *//*
+
 @SuppressWarnings({"unused", "Convert2Lambda"})
 public class DocSnippets {
 
@@ -1181,10 +1184,12 @@ public class DocSnippets {
   }
 
   // [START delete_collection]
-  /**
+  */
+/**
    * Delete all documents in a collection. Uses an Executor to perform work on a background
    * thread. This does *not* automatically discover and delete subcollections.
-   */
+   *//*
+
   private Task<Void> deleteCollection(final CollectionReference collection,
       final int batchSize,
       Executor executor) {
@@ -1219,10 +1224,12 @@ public class DocSnippets {
 
   }
 
-  /**
+  */
+/**
    * Delete all results from a query in a single WriteBatch. Must be run on a worker thread
    * to avoid blocking/crashing the main thread.
-   */
+   *//*
+
   @WorkerThread
   private List<DocumentSnapshot> deleteQueryBatch(final Query query) throws Exception {
     QuerySnapshot querySnapshot = Tasks.await(query.get());
@@ -1333,3 +1340,4 @@ public class DocSnippets {
     // [END update_delete_field]
   }
 }
+*/

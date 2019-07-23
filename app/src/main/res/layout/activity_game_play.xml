@@ -53,5 +53,11 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toRightOf="@id/axe"/>
 
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:elevation="0dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

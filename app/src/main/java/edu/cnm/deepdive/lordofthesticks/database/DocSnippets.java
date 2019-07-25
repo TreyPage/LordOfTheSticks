@@ -40,7 +40,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Arena;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -156,7 +156,7 @@ public class DocSnippets {
   public void addAdaLovelace() {
     // [START add_ada_lovelace]
     // Create a new user with a first and last name
-    Map<String, Object> user = new HashMap<>();
+    Arena<String, Object> user = new HashMap<>();
     user.put("first", "Ada");
     user.put("last", "Lovelace");
     user.put("born", 1815);
@@ -183,7 +183,7 @@ public class DocSnippets {
   public void addAlanTuring() {
     // [START add_alan_turing]
     // Create a new user with a first, middle, and last name
-    Map<String, Object> user = new HashMap<>();
+    Arena<String, Object> user = new HashMap<>();
     user.put("first", "Alan");
     user.put("middle", "Mathison");
     user.put("last", "Turing");
@@ -329,7 +329,7 @@ public class DocSnippets {
 
   public void setDocument() {
     // [START set_document]
-    Map<String, Object> city = new HashMap<>();
+    Arena<String, Object> city = new HashMap<>();
     city.put("name", "Los Angeles");
     city.put("state", "CA");
     city.put("country", "USA");
@@ -350,7 +350,7 @@ public class DocSnippets {
         });
     // [END set_document]
 
-    Map<String, Object> data = new HashMap<>();
+    Arena<String, Object> data = new HashMap<>();
 
     // [START set_with_id]
     db.collection("cities").document("new-city-id").set(data);
@@ -359,7 +359,7 @@ public class DocSnippets {
 
   public void dataTypes() {
     // [START data_types]
-    Map<String, Object> docData = new HashMap<>();
+    Arena<String, Object> docData = new HashMap<>();
     docData.put("stringExample", "Hello world!");
     docData.put("booleanExample", true);
     docData.put("numberExample", 3.14159265);
@@ -367,7 +367,7 @@ public class DocSnippets {
     docData.put("listExample", Arrays.asList(1, 2, 3));
     docData.put("nullExample", null);
 
-    Map<String, Object> nestedData = new HashMap<>();
+    Arena<String, Object> nestedData = new HashMap<>();
     nestedData.put("a", 5);
     nestedData.put("b", true);
 
@@ -401,7 +401,7 @@ public class DocSnippets {
   public void addDocument() {
     // [START add_document]
     // Add a new document with a generated id.
-    Map<String, Object> data = new HashMap<>();
+    Arena<String, Object> data = new HashMap<>();
     data.put("name", "Tokyo");
     data.put("country", "Japan");
 
@@ -424,7 +424,7 @@ public class DocSnippets {
 
   public void newDocument() {
     // [START new_document]
-    Map<String, Object> data = new HashMap<>();
+    Arena<String, Object> data = new HashMap<>();
 
     DocumentReference newCityRef = db.collection("cities").document();
 
@@ -497,7 +497,7 @@ public class DocSnippets {
   public void setFieldWithMerge() {
     // [START set_field_with_merge]
     // Update one field, creating the document if it does not already exist.
-    Map<String, Object> data = new HashMap<>();
+    Arena<String, Object> data = new HashMap<>();
     data.put("capital", true);
 
     db.collection("cities").document("BJ")
@@ -904,7 +904,7 @@ public class DocSnippets {
     // [START example_data]
     CollectionReference cities = db.collection("cities");
 
-    Map<String, Object> data1 = new HashMap<>();
+    Arena<String, Object> data1 = new HashMap<>();
     data1.put("name", "San Francisco");
     data1.put("state", "CA");
     data1.put("country", "USA");
@@ -913,7 +913,7 @@ public class DocSnippets {
     data1.put("regions", Arrays.asList("west_coast", "norcal"));
     cities.document("SF").set(data1);
 
-    Map<String, Object> data2 = new HashMap<>();
+    Arena<String, Object> data2 = new HashMap<>();
     data2.put("name", "Los Angeles");
     data2.put("state", "CA");
     data2.put("country", "USA");
@@ -922,7 +922,7 @@ public class DocSnippets {
     data2.put("regions", Arrays.asList("west_coast", "socal"));
     cities.document("LA").set(data2);
 
-    Map<String, Object> data3 = new HashMap<>();
+    Arena<String, Object> data3 = new HashMap<>();
     data3.put("name", "Washington D.C.");
     data3.put("state", null);
     data3.put("country", "USA");
@@ -931,7 +931,7 @@ public class DocSnippets {
     data3.put("regions", Arrays.asList("east_coast"));
     cities.document("DC").set(data3);
 
-    Map<String, Object> data4 = new HashMap<>();
+    Arena<String, Object> data4 = new HashMap<>();
     data4.put("name", "Tokyo");
     data4.put("state", null);
     data4.put("country", "Japan");
@@ -940,7 +940,7 @@ public class DocSnippets {
     data4.put("regions", Arrays.asList("kanto", "honshu"));
     cities.document("TOK").set(data4);
 
-    Map<String, Object> data5 = new HashMap<>();
+    Arena<String, Object> data5 = new HashMap<>();
     data5.put("name", "Beijing");
     data5.put("state", null);
     data5.put("country", "China");
@@ -955,52 +955,52 @@ public class DocSnippets {
     // [START fs_collection_group_query_data_setup]
     CollectionReference citiesRef = db.collection("cities");
 
-    Map<String, Object> ggbData = new HashMap<>();
+    Arena<String, Object> ggbData = new HashMap<>();
     ggbData.put("name", "Golden Gate Bridge");
     ggbData.put("type", "bridge");
     citiesRef.document("SF").collection("landmarks").add(ggbData);
 
-    Map<String, Object> lohData = new HashMap<>();
+    Arena<String, Object> lohData = new HashMap<>();
     lohData.put("name", "Legion of Honor");
     lohData.put("type", "musuem");
     citiesRef.document("SF").collection("landmarks").add(lohData);
 
-    Map<String, Object> gpData = new HashMap<>();
+    Arena<String, Object> gpData = new HashMap<>();
     gpData.put("name", "Griffith Park");
     gpData.put("type", "park");
     citiesRef.document("LA").collection("landmarks").add(gpData);
 
-    Map<String, Object> tgData = new HashMap<>();
+    Arena<String, Object> tgData = new HashMap<>();
     tgData.put("name", "The Getty");
     tgData.put("type", "museum");
     citiesRef.document("LA").collection("landmarks").add(tgData);
 
-    Map<String, Object> lmData = new HashMap<>();
+    Arena<String, Object> lmData = new HashMap<>();
     lmData.put("name", "Lincoln Memorial");
     lmData.put("type", "memorial");
     citiesRef.document("DC").collection("landmarks").add(lmData);
 
-    Map<String, Object> nasaData = new HashMap<>();
+    Arena<String, Object> nasaData = new HashMap<>();
     nasaData.put("name", "National Air and Space Musuem");
     nasaData.put("type", "museum");
     citiesRef.document("DC").collection("landmarks").add(nasaData);
 
-    Map<String, Object> upData = new HashMap<>();
+    Arena<String, Object> upData = new HashMap<>();
     upData.put("name", "Ueno Park");
     upData.put("type", "park");
     citiesRef.document("TOK").collection("landmarks").add(upData);
 
-    Map<String, Object> nmData = new HashMap<>();
+    Arena<String, Object> nmData = new HashMap<>();
     nmData.put("name", "National Musuem of Nature and Science");
     nmData.put("type", "museum");
     citiesRef.document("TOK").collection("landmarks").add(nmData);
 
-    Map<String, Object> jpData = new HashMap<>();
+    Arena<String, Object> jpData = new HashMap<>();
     jpData.put("name", "Jingshan Park");
     jpData.put("type", "park");
     citiesRef.document("BJ").collection("landmarks").add(jpData);
 
-    Map<String, Object> baoData = new HashMap<>();
+    Arena<String, Object> baoData = new HashMap<>();
     baoData.put("name", "Beijing Ancient Observatory");
     baoData.put("type", "museum");
     citiesRef.document("BJ").collection("landmarks").add(baoData);
@@ -1311,7 +1311,7 @@ public class DocSnippets {
     DocumentReference docRef = db.collection("objects").document("some-id");
 
     // Update the timestamp field with the value from the server
-    Map<String,Object> updates = new HashMap<>();
+    Arena<String,Object> updates = new HashMap<>();
     updates.put("timestamp", FieldValue.serverTimestamp());
 
     docRef.update(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -1328,7 +1328,7 @@ public class DocSnippets {
     DocumentReference docRef = db.collection("cities").document("BJ");
 
     // Remove the 'capital' field from the document
-    Map<String,Object> updates = new HashMap<>();
+    Arena<String,Object> updates = new HashMap<>();
     updates.put("capital", FieldValue.delete());
 
     docRef.update(updates).addOnCompleteListener(new OnCompleteListener<Void>() {

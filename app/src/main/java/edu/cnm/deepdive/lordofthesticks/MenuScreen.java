@@ -37,19 +37,8 @@ public class MenuScreen extends AppCompatActivity {
     TextView data = findViewById(R.id.data_text);
     MenuViewModel viewModel = ViewModelProviders.of(this).get(MenuViewModel.class);
 //    MenuViewModel viewModel = ViewModelProviders
-    LiveData<Task<DocumentSnapshot>> liveData = viewModel.getdataSnapshotLiveData();
-    liveData.observe(this, new Observer<Task<DocumentSnapshot>>() {
-      @Override
-      public void onChanged(Task<DocumentSnapshot> task) {
-        if(task.isSuccessful()){
-          DocumentSnapshot documentSnapshot = task.getResult();
-          data.setText(documentSnapshot.get("name").toString());
-
-        }
-      }
-    });
-
-
+    viewModel.getSnapshot().observe(this, (snapshot) -> data.setText(snapshot.get("name").toString()));
+    viewModel.setPath("3bG5uTKVRb8uh93IYOjr");
 
     playButton.setOnClickListener(new View.OnClickListener() {
       @Override

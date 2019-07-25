@@ -10,11 +10,13 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import edu.cnm.deepdive.lordofthesticks.view.GameView;
 
 //import android.graphics.AvoidXfermode;
 
 public class JoystickView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 
+  private GameView gameView;
   private float centerX;
   private float centerY;
   private float baseRadius;
@@ -129,7 +131,7 @@ public class JoystickView extends SurfaceView implements SurfaceHolder.Callback,
       }
       else
         drawJoystick(centerX, centerY);
-      joystickCallback.onJoystickMoved(0,0,getId());
+        joystickCallback.onJoystickMoved(0,0,getId());
     }
     return true;
   }

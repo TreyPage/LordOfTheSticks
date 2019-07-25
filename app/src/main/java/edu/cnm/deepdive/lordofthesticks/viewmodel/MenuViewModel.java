@@ -1,24 +1,39 @@
 package edu.cnm.deepdive.lordofthesticks.viewmodel;
 
+import android.app.Application;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import edu.cnm.deepdive.lordofthesticks.database.Firebase;
+import javax.annotation.Nullable;
 
-public class MenuViewModel extends ViewModel {
+public class MenuViewModel extends AndroidViewModel {
 
   private static final FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
-  private final Firebase liveData = new Firebase(mDatabase.collection("arenas").document("3bG5uTKVRb8uh93IYOjr"));
+  private MutableLiveData<DocumentSnapshot> snapshot = new MutableLiveData<>();
+  private MutableLiveData<String> path = new MutableLiveData<>();
 
-
-  @NonNull
-  public LiveData<Task<DocumentSnapshot>> getdataSnapshotLiveData(){
-    return liveData;
+  public MenuViewModel(Application application) {
+    super(application);
   }
 
+  public void setPath(String path) {
+    new Firebase(mDatabase.collection("arenas").document(path), (documentSnapshot, e) ->
+        snapshot.postValue(documentSnapshot)
+    );
+  }
+
+  public LiveData<DocumentSnapshot> getSnapshot() {
+    return snapshot;
+  }
 
 
 

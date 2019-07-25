@@ -41,6 +41,8 @@ public class GamePlay extends AppCompatActivity implements JoystickView.Joystick
 
   @Override
   public void onJoystickMoved(float xPercent, float yPercent, int id) {
+
+
     switch (id)
     {
       case R.id.joystickRight:
@@ -48,12 +50,36 @@ public class GamePlay extends AppCompatActivity implements JoystickView.Joystick
         break;
       case R.id.joystickLeft:
         Log.d("Left Joystick", "X percent: " + xPercent + " Y percent: " + yPercent);
-        if (xPercent < 0) {
+        if (xPercent < 0 && xPercent > -0.5) {              //walking left
           gameView.setMovingLeft(true);
-        }
-        if (xPercent > 0) {
+          gameView.setMovingRight(false);
+          gameView.setRunningLeft(false);
+          gameView.setRunningRight(false);
+        } else if (xPercent > 0 && xPercent < 0.5) {        //walking right
           gameView.setMovingRight(true);
+          gameView.setMovingLeft(false);
+          gameView.setRunningLeft(false);
+          gameView.setRunningRight(false);
         }
+        else if (xPercent > 0.5 && xPercent < 1) {          //running right
+          gameView.setRunningRight(true);
+          gameView.setRunningLeft(false);
+          gameView.setMovingRight(false);
+          gameView.setMovingLeft(false);
+        }
+        else if (xPercent < -0.5 && xPercent > -1) {        //running left
+          gameView.setRunningLeft(true);
+          gameView.setRunningRight(false);
+          gameView.setMovingRight(false);
+          gameView.setMovingLeft(false);
+        }
+        if (gameView.getLastXPercent() == 0 && xPercent == 0) {     //Stopping movement
+          gameView.setRunningRight(false);
+          gameView.setRunningLeft(false);
+          gameView.setMovingLeft(false);
+          gameView.setMovingRight(false);
+        }
+        gameView.setLastXPercent(xPercent);
         break;
     }
   }

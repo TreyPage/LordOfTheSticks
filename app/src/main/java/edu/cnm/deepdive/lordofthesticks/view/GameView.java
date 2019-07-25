@@ -15,6 +15,8 @@ import edu.cnm.deepdive.lordofthesticks.R;
 
 public class GameView extends SurfaceView implements Runnable {
 
+
+
   // Thread for the game.
   Thread gameThread = null;
 
@@ -38,12 +40,27 @@ public class GameView extends SurfaceView implements Runnable {
   // Declare an object of type Bitmap, this is our stickman.
   Bitmap bitmapStick;
 
-  // Bob starts off not moving
+
+  private float lastXPercent;
+
+  public float getLastXPercent() {
+    return lastXPercent;
+  }
+
+  public void setLastXPercent(float lastXPercent) {
+    this.lastXPercent = lastXPercent;
+  }
+
+  // Stick starts off not moving
   boolean isMovingRight = false;
   boolean isMovingLeft = false;
+  boolean isRunningRight = false;
+  boolean isRunningLeft = false;
+
 
   // He can walk at 150 pixels per second, we can change this to change the speed etc.
   float walkSpeedPerSecond = 150;
+  float runSpeedPerSecond = 300;
 
   // He starts 10 pixels from the left
   float stickXPosition = 10;
@@ -88,6 +105,14 @@ public class GameView extends SurfaceView implements Runnable {
     isMovingLeft = movingLeft;
   }
 
+  public void setRunningRight(boolean runningRight) {
+    isRunningRight = runningRight;
+  }
+
+  public void setRunningLeft(boolean runningLeft) {
+    isRunningLeft = runningLeft;
+  }
+
   @Override
   public void run() {
     while (playing) {
@@ -121,7 +146,12 @@ public class GameView extends SurfaceView implements Runnable {
     if (isMovingLeft) {
       stickXPosition = stickXPosition - (walkSpeedPerSecond / fps);
     }
-
+    if (isRunningRight) {
+      stickXPosition = stickXPosition + (runSpeedPerSecond / fps);
+    }
+    if (isRunningLeft) {
+      stickXPosition = stickXPosition - (runSpeedPerSecond / fps);
+    }
 
   }
 

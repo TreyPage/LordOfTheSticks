@@ -20,6 +20,8 @@ public class Stickman {
 
   private DocumentReference item;
 
+  public Stickman() {}
+
   public Stickman(String name, float userId, int xLocation, int yLocation, int health,
       boolean alive,
       int kills, DocumentReference item) {

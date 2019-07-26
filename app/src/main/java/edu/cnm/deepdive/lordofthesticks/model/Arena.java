@@ -16,7 +16,7 @@ public class Arena {
 
   private int timeLeft;
 
-
+  public Arena() {}
 
   public Arena(String name, int id, int bottom, int top, int left, int right, int timeLeft) {
     this.name = name;

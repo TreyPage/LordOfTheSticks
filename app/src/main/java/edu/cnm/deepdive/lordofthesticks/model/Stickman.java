@@ -35,6 +35,38 @@ public class Stickman {
     this.item = item;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setUserId(float userId) {
+    this.userId = userId;
+  }
+
+  public void setxLocation(int xLocation) {
+    this.xLocation = xLocation;
+  }
+
+  public void setyLocation(int yLocation) {
+    this.yLocation = yLocation;
+  }
+
+  public void setHealth(int health) {
+    this.health = health;
+  }
+
+  public void setAlive(boolean alive) {
+    this.alive = alive;
+  }
+
+  public void setKills(int kills) {
+    this.kills = kills;
+  }
+
+  public void setItem(DocumentReference item) {
+    this.item = item;
+  }
+
   public String getName() {
     return name;
   }

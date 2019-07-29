@@ -28,6 +28,34 @@ public class Arena {
     this.timeLeft = timeLeft;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setBottom(int bottom) {
+    this.bottom = bottom;
+  }
+
+  public void setTop(int top) {
+    this.top = top;
+  }
+
+  public void setLeft(int left) {
+    this.left = left;
+  }
+
+  public void setRight(int right) {
+    this.right = right;
+  }
+
+  public void setTimeLeft(int timeLeft) {
+    this.timeLeft = timeLeft;
+  }
+
   public String getName() {
     return name;
   }

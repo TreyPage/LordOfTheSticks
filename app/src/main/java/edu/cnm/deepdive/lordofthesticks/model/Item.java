@@ -22,6 +22,22 @@ public class Item {
     this.itemType = itemType;
   }
 
+  public void setxLocation(float xLocation) {
+    this.xLocation = xLocation;
+  }
+
+  public void setyLocation(float yLocation) {
+    this.yLocation = yLocation;
+  }
+
+  public void setOwned(boolean owned) {
+    this.owned = owned;
+  }
+
+  public void setItemType(DocumentReference itemType) {
+    this.itemType = itemType;
+  }
+
   public DocumentReference getItemType() {
     return itemType;
   }

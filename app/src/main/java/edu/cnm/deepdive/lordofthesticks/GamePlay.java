@@ -30,8 +30,6 @@ public class GamePlay extends AppCompatActivity implements JoystickView.Joystick
     JoystickView joystickLeft = findViewById(R.id.joystickLeft);
     JoystickView joystickRight = findViewById(R.id.joystickRight);
     gameView = findViewById(R.id.game_screen);
-//    joystickLeft.setZOrderOnTop(true);
-//    joystickRight.setZOrderOnTop(true);
     SurfaceHolder surfaceRight = joystickRight.getHolder();
     SurfaceHolder surfaceLeft = joystickLeft.getHolder();
     surfaceRight.setFormat(PixelFormat.TRANSPARENT);
@@ -78,6 +76,7 @@ public class GamePlay extends AppCompatActivity implements JoystickView.Joystick
           gameView.setRunningLeft(false);
           gameView.setMovingLeft(false);
           gameView.setMovingRight(false);
+          gameView.setCurrentFrame(0);
         }
         gameView.setLastXPercent(xPercent);
         break;
@@ -113,19 +112,5 @@ public class GamePlay extends AppCompatActivity implements JoystickView.Joystick
       throw new IllegalArgumentException("unsupported drawable type");
     }
   }
-//  int bitCount(int value) {
-//    int count = 0;
-//    while (value > 0) {
-//      if (value % 2 == 1) {
-//        count++;
-//        value /= 2;
-//      } else {
-//        value = value / 2;
-//      }
-//    }
-//    return count;
-//  }
-
-
 
 }

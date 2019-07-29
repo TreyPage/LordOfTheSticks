@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="MovingRight">
+    <attr name="moving_right" format="boolean"/>
+  </declare-styleable>
+
+  <declare-styleable name="MovingLeft">
+    <attr name="moving_left" format="boolean"/>
+  </declare-styleable>
+</resources>

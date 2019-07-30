@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+  <!-- app_id -->
+  <string name="app_id" translatable="false">656839351493</string>
+  <!-- package_name -->
+  <string name="package_name" translatable="false">edu.cnm.deepdive.lordofthesticks</string>
+  <!-- achievement Won a Game -->
+  <string name="achievement_won_a_game" translatable="false">CgkIxbm09Y4TEAIQAQ</string>
+</resources>

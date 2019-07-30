@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import edu.cnm.deepdive.lordofthesticks.view.Splash;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,7 +34,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
       //closing this activity
       finish();
       //starting login activity
-      startActivity(new Intent(this, RegisterActivity.class));
+      startActivity(new Intent(this, Splash.class));
     }
 
     //getting current user
@@ -59,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
       //closing activity
       finish();
       //starting login activity
-      startActivity(new Intent(this, RegisterActivity.class)
+      startActivity(new Intent(this, Splash.class)
           .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
   }

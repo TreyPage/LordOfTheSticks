@@ -3,6 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   >
 
   <ImageView
@@ -11,6 +12,17 @@
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     android:src="@drawable/lord_of_the_sticks_splash"
+    />
+
+  <com.google.android.gms.common.SignInButton
+    android:id="@+id/sign_in"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="35dp"
+    android:padding="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

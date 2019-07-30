@@ -34,7 +34,7 @@ public class Splash extends AppCompatActivity {
         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
         GoogleSignInAccount account = task.getResult(ApiException.class);
         GoogleSignInService.getInstance().setAccount(account);
-
+        firebaseAuthWithGoogle(account);
         switchToNext();
       } catch (ApiException e) {
         Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
@@ -70,6 +70,7 @@ public class Splash extends AppCompatActivity {
     findViewById(R.id.sign_in).setOnClickListener(
         (view) -> signIn());
   }
+
   private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String TAG = "GoogleActivity";
@@ -89,7 +90,8 @@ public class Splash extends AppCompatActivity {
             } else {
               // If sign in fails, display a message to the user.
               Log.w(TAG, "signInWithCredential:failure", task.getException());
-              Snackbar.make(findViewById(R.id.splash_activity), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+              Snackbar.make(findViewById(R.id.splash_activity), "Authentication Failed.",
+                  Snackbar.LENGTH_SHORT).show();
             }
           }
         });

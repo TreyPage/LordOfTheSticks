@@ -101,7 +101,7 @@ public class PlayServices extends Activity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_menu_screen);
-    player = GoogleSignInAccount.createDefault().requestExtraScopes();
+    player = GoogleSignIn.getLastSignedInAccount(this);
     // Client used to interact with the real time multiplayer system.
     mRealTimeMultiplayerClient = Games
         .getRealTimeMultiplayerClient(this, player);

@@ -16,7 +16,8 @@
     android:screenOrientation="landscape"
     android:supportsRtl="true"
     android:theme="@style/Theme.AppCompat.NoActionBar"
-    tools:ignore="GoogleAppIndexingWarning">
+    tools:ignore="GoogleAppIndexingWarning"
+    android:name=".LotSApp">
     <activity android:name=".ProfileActivity"
       android:screenOrientation="landscape"
       >

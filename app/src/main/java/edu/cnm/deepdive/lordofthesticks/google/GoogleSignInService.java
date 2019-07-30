@@ -15,7 +15,7 @@ public class GoogleSignInService {
 
   private GoogleSignInService() {
     GoogleSignInOptions options = new GoogleSignInOptions.Builder()
-        .requestEmail().requestId()
+        .requestEmail().requestId().requestIdToken("656839351493-j35ukq97krg214pjpj84b1slcjutt6mu.apps.googleusercontent.com")
         .build();
     client = GoogleSignIn.getClient(context, options);
   }

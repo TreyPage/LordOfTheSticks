@@ -84,6 +84,7 @@ public class PlayServices extends Activity {
   // Are we playing in multiplayer mode?
   boolean mMultiplayer = false;
 
+  RoomConfig mJoinedRoomConfig;
   // The participants in the currently active game
   ArrayList<Participant> mParticipants = null;
 
@@ -101,49 +102,16 @@ public class PlayServices extends Activity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_menu_screen);
-    player = GoogleSignIn.getLastSignedInAccount(this);
+
+    player = GoogleSignInService.getInstance().getAccount();
+    mGoogleSignInClient = GoogleSignInService.getInstance().getClient();
+
     // Client used to interact with the real time multiplayer system.
     mRealTimeMultiplayerClient = Games
         .getRealTimeMultiplayerClient(this, player);
 
-    // Create the client used to sign in.
-    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
-        GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN).requestScopes(Games.SCOPE_GAMES_LITE).build();
-
     //TODO switch to correct screen
     startQuickGame();
-    checkPlaceholderIds();
-  }
-
-  // Check the sample to ensure all placeholder ids are are updated with real-world values.
-  // This is strictly for the purpose of the samples; you don't need this in a production
-  // application.
-  private void checkPlaceholderIds() {
-    StringBuilder problems = new StringBuilder();
-
-    if (getPackageName().startsWith("com.google.")) {
-      problems.append("- Package name start with com.google.*\n");
-    }
-
-    for (Integer id : new Integer[]{R.string.app_id}) {
-
-      String value = getString(id);
-
-      if (value.startsWith("YOUR_")) {
-        // needs replacing
-        problems.append("- Placeholders(YOUR_*) in ids.xml need updating\n");
-        break;
-      }
-    }
-
-    if (problems.length() > 0) {
-      problems.insert(0, "The following problems were found:\n\n");
-
-      problems.append("\nThese problems may prevent the app from working properly.");
-      problems.append("\n\nSee the TODO window in Android Studio for more information");
-      (new AlertDialog.Builder(this)).setMessage(problems.toString())
-          .setNeutralButton(android.R.string.ok, null).create().show();
-    }
   }
 
   void startQuickGame() {
@@ -161,102 +129,14 @@ public class PlayServices extends Activity {
         .build();
     mRealTimeMultiplayerClient.create(mRoomConfig);
 
-    Room room = new Room() {
-      @Override
-      public String getRoomId() {
-        return null;
-      }
+    mJoinedRoomConfig = mRoomConfig;
 
-      @Override
-      public String getCreatorId() {
-        return null;
-      }
+    // create room:
+    Games.getRealTimeMultiplayerClient(this, player)
+        .create(mRoomConfig);
 
-      @Override
-      public long getCreationTimestamp() {
-        return 0;
-      }
-
-      @Override
-      public int getStatus() {
-        return 0;
-      }
-
-      @Override
-      public String getDescription() {
-        return null;
-      }
-
-      @Override
-      public void getDescription(CharArrayBuffer charArrayBuffer) {
-
-      }
-
-      @Override
-      public int getVariant() {
-        return 0;
-      }
-
-      @Nullable
-      @Override
-      public Bundle getAutoMatchCriteria() {
-        return null;
-      }
-
-      @Override
-      public int getAutoMatchWaitEstimateSeconds() {
-        return 0;
-      }
-
-      @Override
-      public int getParticipantStatus(String s) {
-        return 0;
-      }
-
-      @Override
-      public ArrayList<String> getParticipantIds() {
-        return null;
-      }
-
-      @Override
-      public String getParticipantId(String s) {
-        return null;
-      }
-
-      @Override
-      public Participant getParticipant(String s) {
-        return null;
-      }
-
-      @Override
-      public int describeContents() {
-        return 0;
-      }
-
-      @Override
-      public void writeToParcel(Parcel parcel, int i) {
-
-      }
-
-      @Override
-      public Room freeze() {
-        return null;
-      }
-
-      @Override
-      public boolean isDataValid() {
-        return false;
-      }
-
-      @Override
-      public ArrayList<Participant> getParticipants() {
-        return null;
-      }
-    };
-    showWaitingRoom(room);
 
   }
-
 
   /**
    * Since a lot of the operations use tasks, we can use a common handler for whenever one fails.
@@ -557,6 +437,7 @@ public class PlayServices extends Activity {
       //get participants and my ID:
       mParticipants = room.getParticipants();
       mMyId = room.getParticipantId(mPlayerId);
+
 
       // save room ID if its not initialized in onRoomCreated() so we can leave cleanly before the game starts.
       if (mRoomId == null) {

@@ -5,6 +5,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.games.Games;
 
 public class GoogleSignInService {
 
@@ -15,7 +16,9 @@ public class GoogleSignInService {
 
   private GoogleSignInService() {
     GoogleSignInOptions options = new GoogleSignInOptions.Builder()
-        .requestEmail().requestId().requestIdToken("656839351493-aevuk7ekve8bjlek9dbga23lu478k3k1.apps.googleusercontent.com")
+        .requestEmail().requestId()
+        .requestScopes(Games.SCOPE_GAMES_LITE)
+        .requestIdToken("656839351493-aevuk7ekve8bjlek9dbga23lu478k3k1.apps.googleusercontent.com")
         .build();
     client = GoogleSignIn.getClient(context, options);
   }

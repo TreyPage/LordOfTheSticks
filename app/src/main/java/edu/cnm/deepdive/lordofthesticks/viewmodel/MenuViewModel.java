@@ -23,11 +23,8 @@ public class MenuViewModel extends AndroidViewModel {
 
   HashMap<String, Object> docDate = new HashMap<>();
 
-
-
   public MenuViewModel(Application application) {
     super(application);
-
   }
 
 //  public void setupMap(){

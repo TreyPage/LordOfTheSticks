@@ -1,7 +1,7 @@
 package edu.cnm.deepdive.lordofthesticks.google;
 
 import android.accounts.Account;
-import android.app.Activity;
+//import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.CharArrayBuffer;
@@ -66,12 +66,10 @@ public class PlayServices extends AppCompatActivity {
   private static final int RC_SIGN_IN = 9001;
 
   String mMyParticipantId;
-  // Client used to sign in with Google APIs
-  private GoogleSignInClient mGoogleSignInClient = null;
 
-  GoogleSignInAccount player = null;
+  private GoogleSignInAccount player = null;
 
-  RealTimeMultiplayerClient mRealTimeMultiplayerClient = null;
+  private RealTimeMultiplayerClient mRealTimeMultiplayerClient = null;
 
   // Client used to interact with the Invitation system.
   private InvitationsClient mInvitationsClient = null;
@@ -106,7 +104,6 @@ public class PlayServices extends AppCompatActivity {
     setContentView(R.layout.activity_menu_screen);
 
     player = GoogleSignInService.getInstance().getAccount();
-    mGoogleSignInClient = GoogleSignInService.getInstance().getClient();
 
     // Client used to interact with the real time multiplayer system.
     mRealTimeMultiplayerClient = Games
@@ -165,7 +162,6 @@ public class PlayServices extends AppCompatActivity {
     return false;
   }
 
-  private Activity thisActivity = this;
   private Room mRoom;
   private RoomStatusUpdateCallback mRoomStatusCallbackHandler = new RoomStatusUpdateCallback() {
     @Override
@@ -187,8 +183,7 @@ public class PlayServices extends AppCompatActivity {
     public void onPeerDeclined(@Nullable Room room, @NonNull List<String> list) {
       // Peer declined invitation, see if game should be canceled
       if (!mPlaying && shouldCancelGame(room)) {
-        Games.getRealTimeMultiplayerClient(thisActivity,
-            GoogleSignIn.getLastSignedInAccount(thisActivity))
+        Games.getRealTimeMultiplayerClient(PlayServices.this, player)
             .leave(mJoinedRoomConfig, room.getRoomId());
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
       }
@@ -203,8 +198,7 @@ public class PlayServices extends AppCompatActivity {
     public void onPeerLeft(@Nullable Room room, @NonNull List<String> list) {
       // Peer left, see if game should be canceled.
       if (!mPlaying && shouldCancelGame(room)) {
-        Games.getRealTimeMultiplayerClient(thisActivity,
-            GoogleSignIn.getLastSignedInAccount(thisActivity))
+        Games.getRealTimeMultiplayerClient(PlayServices.this, player)
             .leave(mJoinedRoomConfig, room.getRoomId());
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
       }
@@ -214,7 +208,7 @@ public class PlayServices extends AppCompatActivity {
     public void onConnectedToRoom(@Nullable Room room) {
       // Connected to room, record the room Id.
       mRoom = room;
-      Games.getPlayersClient(thisActivity, GoogleSignIn.getLastSignedInAccount(thisActivity))
+      Games.getPlayersClient(PlayServices.this, player)
           .getCurrentPlayerId().addOnSuccessListener(new OnSuccessListener<String>() {
         @Override
         public void onSuccess(String playerId) {
@@ -226,7 +220,7 @@ public class PlayServices extends AppCompatActivity {
     @Override
     public void onDisconnectedFromRoom(@Nullable Room room) {
       // This usually happens due to a network error, leave the game.
-      Games.getRealTimeMultiplayerClient(thisActivity, GoogleSignIn.getLastSignedInAccount(thisActivity))
+      Games.getRealTimeMultiplayerClient(PlayServices.this, player)
           .leave(mJoinedRoomConfig, room.getRoomId());
       getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
       // show error message and return to main screen
@@ -251,8 +245,7 @@ public class PlayServices extends AppCompatActivity {
         // the game to go on, end the game and leave the room.
       } else if (shouldCancelGame(room)) {
         // cancel the game
-        Games.getRealTimeMultiplayerClient(thisActivity,
-            GoogleSignIn.getLastSignedInAccount(thisActivity))
+        Games.getRealTimeMultiplayerClient(PlayServices.this, player)
             .leave(mJoinedRoomConfig, room.getRoomId());
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
       }

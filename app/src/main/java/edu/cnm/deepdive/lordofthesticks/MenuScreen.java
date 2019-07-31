@@ -40,7 +40,11 @@ public class MenuScreen extends AppCompatActivity {
     TextView data = findViewById(R.id.data_text);
     MenuViewModel viewModel = ViewModelProviders.of(this).get(MenuViewModel.class);
     viewModel.getSnapshot()
-        .observe(this, (snapshot) -> data.setText(snapshot.get("name").toString()));
+        .observe(this, (snapshot) -> {
+          if (snapshot != null) {
+            data.setText(snapshot.get("name").toString());
+          }
+        });
     viewModel.setPath("3bG5uTKVRb8uh93IYOjr");
 
     playButton.setOnClickListener(new View.OnClickListener() {

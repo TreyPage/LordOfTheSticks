@@ -4,6 +4,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import com.google.android.gms.games.stats.PlayerStats;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,6 +27,7 @@ public class MenuViewModel extends AndroidViewModel {
 
   public MenuViewModel(Application application) {
     super(application);
+
   }
 
 //  public void setupMap(){

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -48,7 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class PlayServices extends Activity {
+public class PlayServices extends AppCompatActivity {
   /*
    * API INTEGRATION SECTION. This section contains the code that integrates
    * the game with the Google Play game services API.
@@ -135,8 +136,7 @@ public class PlayServices extends Activity {
     mJoinedRoomConfig = roomConfig;
 
     // create room:
-    Games.getRealTimeMultiplayerClient(this, GoogleSignIn.getLastSignedInAccount(this))
-        .create(roomConfig);
+    mRealTimeMultiplayerClient.create(roomConfig);
   }
 
   // are we already playing?

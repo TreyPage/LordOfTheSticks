@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.lordofthesticks.google;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.GamesActivityResultCodes;
 import com.google.android.gms.games.GamesCallbackStatusCodes;
 import com.google.android.gms.games.InvitationsClient;
 import com.google.android.gms.games.RealTimeMultiplayerClient;
@@ -20,6 +22,7 @@ import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.android.gms.games.multiplayer.realtime.RoomStatusUpdateCallback;
 import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
 import com.google.android.gms.tasks.OnSuccessListener;
+import edu.cnm.deepdive.lordofthesticks.GamePlay;
 import edu.cnm.deepdive.lordofthesticks.MenuScreen;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,18 +34,13 @@ public class PlayServices extends AppCompatActivity {
    * API INTEGRATION SECTION. This section contains the code that integrates
    * the game with the Google Play game services API.
    */
-
-  final static String TAG = "LordoftheSticks";
+  private final static String TAG = "LordoftheSticks";
 
   // Request codes for the UIs that we show with startActivityForResult:
-  final static int RC_SELECT_PLAYERS = 10000;
-  final static int RC_INVITATION_INBOX = 10001;
-  final static int RC_WAITING_ROOM = 10002;
+  private final static int RC_WAITING_ROOM = 10002;
 
-  // Request code used to invoke sign in user interactions.
-  private static final int RC_SIGN_IN = 9001;
-
-  String mMyParticipantId;
+  // My participant ID in the currently active game
+  private String mMyParticipantId;
 
   private GoogleSignInAccount player = null;
 
@@ -53,27 +51,19 @@ public class PlayServices extends AppCompatActivity {
 
   // Room ID where the currently active game is taking place; null if we're
   // not playing.
-  String mRoomId = null;
+  private String mRoomId = null;
 
   // Holds the configuration of the current room.
-  RoomConfig mRoomConfig;
+  private RoomConfig mJoinedRoomConfig;
 
-  // Are we playing in multiplayer mode?
-  boolean mMultiplayer = false;
-
-  RoomConfig mJoinedRoomConfig;
   // The participants in the currently active game
   ArrayList<Participant> mParticipants = null;
 
-  // My participant ID in the currently active game
-  String mMyId = null;
+  // are we already playing?
+  private boolean mPlaying = false;
 
-  // If non-null, this is the id of the invitation we received via the
-  // invitation listener
-  String mIncomingInvitationId = null;
-
-  // Message buffer for sending messages
-  byte[] mMsgBuf = new byte[2];
+  // at least 2 players required for our game
+  private final static int MIN_PLAYERS = 2;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -112,14 +102,8 @@ public class PlayServices extends AppCompatActivity {
     mRealTimeMultiplayerClient.create(roomConfig);
   }
 
-  // are we already playing?
-  boolean mPlaying = false;
-
-  // at least 2 players required for our game
-  final static int MIN_PLAYERS = 2;
-
   // returns whether there are enough players to start the game
-  boolean shouldStartGame(Room room) {
+  private boolean shouldStartGame(Room room) {
     int connectedPlayers = 0;
     for (Participant p : room.getParticipants()) {
       if (p.isConnectedToRoom()) {
@@ -130,7 +114,7 @@ public class PlayServices extends AppCompatActivity {
   }
 
   // Returns whether the room is in a state where the game should be canceled.
-  boolean shouldCancelGame(Room room) {
+  private boolean shouldCancelGame(Room room) {
     // TODO: Your game-specific cancellation logic here. For example, you might decide to
     // cancel the game if enough people have declined the invitation or left the room.
     // You can check a participant's status with Participant.getStatus().
@@ -160,7 +144,7 @@ public class PlayServices extends AppCompatActivity {
       // Peer declined invitation, see if game should be canceled
       if (!mPlaying && shouldCancelGame(room)) {
         Games.getRealTimeMultiplayerClient(PlayServices.this, player)
-            .leave(mJoinedRoomConfig, room.getRoomId());
+            .leave(mJoinedRoomConfig, mRoomId);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
       }
     }
@@ -175,7 +159,7 @@ public class PlayServices extends AppCompatActivity {
       // Peer left, see if game should be canceled.
       if (!mPlaying && shouldCancelGame(room)) {
         Games.getRealTimeMultiplayerClient(PlayServices.this, player)
-            .leave(mJoinedRoomConfig, room.getRoomId());
+            .leave(mJoinedRoomConfig, mRoomId);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
       }
     }
@@ -197,12 +181,12 @@ public class PlayServices extends AppCompatActivity {
     public void onDisconnectedFromRoom(@Nullable Room room) {
       // This usually happens due to a network error, leave the game.
       Games.getRealTimeMultiplayerClient(PlayServices.this, player)
-          .leave(mJoinedRoomConfig, room.getRoomId());
+          .leave(mJoinedRoomConfig, mRoomId);
       getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
       // show error message and return to main screen
       mRoom = null;
       mJoinedRoomConfig = null;
-      goToMenuScreen();
+      goToAnotherScreen(MenuScreen.class);
     }
 
     @Override
@@ -223,9 +207,9 @@ public class PlayServices extends AppCompatActivity {
       } else if (shouldCancelGame(room)) {
         // cancel the game
         Games.getRealTimeMultiplayerClient(PlayServices.this, player)
-            .leave(mJoinedRoomConfig, room.getRoomId());
+            .leave(mJoinedRoomConfig, mRoomId);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        goToMenuScreen();
+        goToAnotherScreen(MenuScreen.class);
       }
     }
 
@@ -253,10 +237,11 @@ public class PlayServices extends AppCompatActivity {
   private RoomUpdateCallback mRoomUpdateCallback = new RoomUpdateCallback() {
     @Override
     public void onRoomCreated(int code, @Nullable Room room) {
+      mRoomId = room.getRoomId();
       // Update UI and internal state based on room updates.
       if (code == GamesCallbackStatusCodes.OK && room != null) {
-        Log.d(TAG, "Room " + room.getRoomId() + " created.");
-        showWaitingRoom(room, 2);
+        Log.d(TAG, "Room " + mRoomId + " created.");
+        showWaitingRoom(room);
       } else {
         Log.w(TAG, "Error creating room: " + code);
         // let screen go to sleep
@@ -269,7 +254,7 @@ public class PlayServices extends AppCompatActivity {
     public void onJoinedRoom(int code, @Nullable Room room) {
       // Update UI and internal state based on room updates.
       if (code == GamesCallbackStatusCodes.OK && room != null) {
-        Log.d(TAG, "Room " + room.getRoomId() + " joined.");
+        Log.d(TAG, "Room " + mRoomId + " joined.");
       } else {
         Log.w(TAG, "Error joining room: " + code);
         // let screen go to sleep
@@ -280,14 +265,14 @@ public class PlayServices extends AppCompatActivity {
 
     @Override
     public void onLeftRoom(int code, @NonNull String roomId) {
-      goToMenuScreen();
+      goToAnotherScreen(MenuScreen.class);
       Log.d(TAG, "Left room" + roomId);
     }
 
     @Override
     public void onRoomConnected(int code, @Nullable Room room) {
       if (code == GamesCallbackStatusCodes.OK && room != null) {
-        Log.d(TAG, "Room " + room.getRoomId() + " connected.");
+        Log.d(TAG, "Room " + mRoomId + " connected.");
       } else {
         Log.w(TAG, "Error connecting to room: " + code);
         // let screen go to sleep
@@ -297,9 +282,9 @@ public class PlayServices extends AppCompatActivity {
     }
   };
 
-  private void showWaitingRoom(Room room, int maxPlayersToStartGame) {
+  private void showWaitingRoom(Room room) {
     Games.getRealTimeMultiplayerClient(this, player)
-        .getWaitingRoomIntent(room, maxPlayersToStartGame)
+        .getWaitingRoomIntent(room, 2)
         .addOnSuccessListener(new OnSuccessListener<Intent>() {
           @Override
           public void onSuccess(Intent intent) {
@@ -308,9 +293,45 @@ public class PlayServices extends AppCompatActivity {
         });
   }
 
-  private void goToMenuScreen() {
-    Intent intent = new Intent(getApplicationContext(), MenuScreen.class);
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == RC_WAITING_ROOM) {
+
+      if (resultCode == Activity.RESULT_OK) {
+        goToAnotherScreen(GamePlay.class);
+        //FIXME Start the game!
+      } else if (resultCode == Activity.RESULT_CANCELED || resultCode == GamesActivityResultCodes.RESULT_LEFT_ROOM) {
+        // Waiting room was dismissed with the back button. The meaning of this
+        // action is up to the game. You may choose to leave the room and cancel the
+        // match, or do something else like minimize the waiting room and
+        // continue to connect in the background.
+
+        // This just leaves the room:
+        Games.getRealTimeMultiplayerClient(this, player)
+            .leave(mJoinedRoomConfig, mRoomId);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        goToAnotherScreen(MenuScreen.class);
+      }
+    }
+  }
+
+  private void goToAnotherScreen(Class desire) {
+    Intent intent = new Intent(getApplicationContext(), desire);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(intent);
   }
+
+  public String getmMyParticipantId() {
+    return mMyParticipantId;
+  }
+
+  public GoogleSignInAccount getPlayer() {
+    return player;
+  }
+
+  public String getmRoomId() {
+    return mRoomId;
+  }
+
 }

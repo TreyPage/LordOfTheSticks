@@ -1,34 +1,17 @@
 package edu.cnm.deepdive.lordofthesticks.google;
 
-import android.accounts.Account;
-//import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.database.CharArrayBuffer;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcel;
 import android.util.Log;
 import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.GamesActivityResultCodes;
 import com.google.android.gms.games.GamesCallbackStatusCodes;
-import com.google.android.gms.games.GamesClient;
-import com.google.android.gms.games.GamesClientStatusCodes;
 import com.google.android.gms.games.InvitationsClient;
-import com.google.android.gms.games.Player;
-import com.google.android.gms.games.PlayersClient;
 import com.google.android.gms.games.RealTimeMultiplayerClient;
-import com.google.android.gms.games.multiplayer.Invitation;
-import com.google.android.gms.games.multiplayer.Multiplayer;
 import com.google.android.gms.games.multiplayer.Participant;
 import com.google.android.gms.games.multiplayer.realtime.OnRealTimeMessageReceivedListener;
 import com.google.android.gms.games.multiplayer.realtime.RealTimeMessage;
@@ -36,18 +19,12 @@ import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.android.gms.games.multiplayer.realtime.RoomStatusUpdateCallback;
 import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import edu.cnm.deepdive.lordofthesticks.MenuScreen;
-import edu.cnm.deepdive.lordofthesticks.R;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+//import android.app.Activity;
 
 public class PlayServices extends AppCompatActivity {
   /*
@@ -101,7 +78,6 @@ public class PlayServices extends AppCompatActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_menu_screen);
 
     player = GoogleSignInService.getInstance().getAccount();
 
@@ -226,6 +202,7 @@ public class PlayServices extends AppCompatActivity {
       // show error message and return to main screen
       mRoom = null;
       mJoinedRoomConfig = null;
+      goToMenuScreen();
     }
 
     @Override
@@ -248,6 +225,7 @@ public class PlayServices extends AppCompatActivity {
         Games.getRealTimeMultiplayerClient(PlayServices.this, player)
             .leave(mJoinedRoomConfig, room.getRoomId());
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        goToMenuScreen();
       }
     }
 
@@ -278,6 +256,7 @@ public class PlayServices extends AppCompatActivity {
       // Update UI and internal state based on room updates.
       if (code == GamesCallbackStatusCodes.OK && room != null) {
         Log.d(TAG, "Room " + room.getRoomId() + " created.");
+        showWaitingRoom(room, 2);
       } else {
         Log.w(TAG, "Error creating room: " + code);
         // let screen go to sleep
@@ -301,6 +280,7 @@ public class PlayServices extends AppCompatActivity {
 
     @Override
     public void onLeftRoom(int code, @NonNull String roomId) {
+      goToMenuScreen();
       Log.d(TAG, "Left room" + roomId);
     }
 
@@ -316,4 +296,21 @@ public class PlayServices extends AppCompatActivity {
       }
     }
   };
+
+  private void showWaitingRoom(Room room, int maxPlayersToStartGame) {
+    Games.getRealTimeMultiplayerClient(this, player)
+        .getWaitingRoomIntent(room, maxPlayersToStartGame)
+        .addOnSuccessListener(new OnSuccessListener<Intent>() {
+          @Override
+          public void onSuccess(Intent intent) {
+            startActivityForResult(intent, RC_WAITING_ROOM);
+          }
+        });
+  }
+
+  private void goToMenuScreen() {
+    Intent intent = new Intent(getApplicationContext(), MenuScreen.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+  }
 }

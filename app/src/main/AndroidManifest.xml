@@ -5,6 +5,8 @@
   android:screenOrientation="landscape"
   >
 
+
+
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -16,11 +18,14 @@
     android:screenOrientation="landscape"
     android:supportsRtl="true"
     android:theme="@style/Theme.AppCompat.NoActionBar"
-    tools:ignore="GoogleAppIndexingWarning">
-    <activity android:name=".LoginActivity"
-      android:screenOrientation="landscape"
-      >
-    </activity>
+    tools:ignore="GoogleAppIndexingWarning"
+    android:name=".LotSApp">
+
+    <meta-data android:name="com.google.android.gms.games.APP_ID"
+      android:value="@string/app_id" />
+    <meta-data android:name="com.google.android.gms.version"
+      android:value="@integer/google_play_services_version"/>
+
     <activity android:name=".ProfileActivity"
       android:screenOrientation="landscape"
       >
@@ -48,23 +53,20 @@
       android:screenOrientation="landscape">
     </activity>
     <activity
-      android:label="@string/title_activity_login"
-      android:name=".RegisterActivity"
-      android:screenOrientation="landscape">
+      android:name=".view.Splash"
+      android:screenOrientation="landscape"
+      tools:ignore="ExtraText">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity
-      android:name=".view.Splash"
-      android:screenOrientation="landscape"
-      tools:ignore="ExtraText"/>
 
     <activity
       android:name=".MainActivity"
       android:screenOrientation="landscape"/>
+    <activity android:name=".google.PlayServices"/>
   </application>
   <uses-permission android:name="android.permission.READ_PROFILE"/>
   <uses-permission android:name="android.permission.READ_CONTACTS"/>

@@ -8,54 +8,60 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LevelListDrawable;
+import android.media.Image;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.ImageView;
 import edu.cnm.deepdive.lordofthesticks.R;
 
 public class GameView extends SurfaceView implements Runnable {
 
 
   // Thread for the game.
-  Thread gameThread = null;
+  private Thread gameThread = null;
 
   //Needed surface holder for paint and canvas to create the movement.
-  SurfaceHolder ourHolder;
+  private SurfaceHolder ourHolder;
 
   // Boolean for running or not. For the game loop.
-  volatile boolean playing;
+  private volatile boolean playing;
 
   // Canvas and paint objects.
-  Canvas canvas;
-  Paint paint;
+  private Canvas canvas;
+  private Paint paint;
 
   // Frames per seconds for the game.
-  long fps;
+  private long fps;
 
   // Helps calculate the fps
   private long timeThisFrame;
 
 
   // Declare an object of type Bitmap, this is our stickman.
-  Bitmap bitmapStick;
+  private Bitmap bitmapStick;
+  // LevelList Drawable for animation
+  private Drawable stick;
 
 
   private float lastXPercent;
 
   // Stick starts off not moving
-  boolean isMovingRight = false;
-  boolean isMovingLeft = false;
-  boolean isRunningRight = false;
-  boolean isRunningLeft = false;
+  private boolean isMovingRight = false;
+  private boolean isMovingLeft = false;
+  private boolean isRunningRight = false;
+  private boolean isRunningLeft = false;
 
 
   // He can walk at 250 pixels per second, we can change this to change the speed etc.
-  float walkSpeedPerSecond = 150;
-  float runSpeedPerSecond = 300;
+  private float walkSpeedPerSecond = 150;
+  private float runSpeedPerSecond = 300;
 
   // He starts 10 pixels from the left
-  float stickXPosition = 300;
+  private float stickXPosition = 300;
 
   // Ratio for the sprite.
   private int frameWidth = 150;
@@ -77,7 +83,7 @@ public class GameView extends SurfaceView implements Runnable {
   private Rect frameToDraw = new Rect(0, 0, frameWidth, frameHeight);
 
   //A Rect defining where on the screen to draw.
-  RectF whereToDraw = new RectF(stickXPosition, 0, stickXPosition + frameWidth, frameHeight);
+  private RectF whereToDraw = new RectF(stickXPosition, 0, stickXPosition + frameWidth, frameHeight);
 
 
   {
@@ -85,7 +91,13 @@ public class GameView extends SurfaceView implements Runnable {
     ourHolder = getHolder();
     paint = new Paint();
 
-    // Load the stickman!
+    // TODO this is how I want to do it. start at 0. go 1-3 for right, and -1 to -3 for left
+//    stick = getResources().getDrawable(R.drawable.movement);
+//    stick.setLevel(0);
+
+
+    // Load the stickman!       TODO this is an easy way to get the resource png and cycle through
+//      bitmapStick = drawableToBitMap(drawable);
     bitmapStick = BitmapFactory.decodeResource(this.getResources(), R.drawable.movingright);
 
     // Scale the bitmap to the correct size, need to do because of Android auto scale to screen density.
@@ -187,6 +199,8 @@ public class GameView extends SurfaceView implements Runnable {
 
   public void getCurrentFrame() {
 
+    //TODO after getting the LevelListDrawable to work implement it here cycling between 1-3 for right and -1 to -3 for left.
+
     long time = System.currentTimeMillis();
     if (isMovingRight || isRunningRight) {
       if ( time > lastFrameChangeTime + frameLengthInMilliseconds) {
@@ -228,6 +242,8 @@ public class GameView extends SurfaceView implements Runnable {
 //        paint.setTextSize(45);
 //
 //        canvas.drawText("FPS:" + fps, 20, 40, paint);
+
+
 
       whereToDraw.set((int)stickXPosition, 0, (int)stickXPosition + frameWidth, frameHeight);
 

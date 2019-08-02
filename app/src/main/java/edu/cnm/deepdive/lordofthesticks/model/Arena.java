@@ -4,7 +4,7 @@ public class Arena {
 
   private String name;
 
-  private int id;
+  private String id;
 
   private int bottom;
 
@@ -18,7 +18,7 @@ public class Arena {
 
   public Arena() {}
 
-  public Arena(String name, int id, int bottom, int top, int left, int right, int timeLeft) {
+  public Arena(String name, String id, int bottom, int top, int left, int right, int timeLeft) {
     this.name = name;
     this.id = id;
     this.bottom = bottom;
@@ -32,7 +32,7 @@ public class Arena {
     this.name = name;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -60,7 +60,7 @@ public class Arena {
     return name;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 

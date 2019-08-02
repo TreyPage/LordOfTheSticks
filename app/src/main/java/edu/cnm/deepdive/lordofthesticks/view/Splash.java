@@ -22,6 +22,13 @@ import edu.cnm.deepdive.lordofthesticks.MenuScreen;
 import edu.cnm.deepdive.lordofthesticks.R;
 import edu.cnm.deepdive.lordofthesticks.google.GoogleSignInService;
 
+/***
+ * The Splash activity shows a picture with credits to each team member, title of the game,
+ * and a number of sticks fighting. It also has a Google sign in button. This class will show
+ * the first time the game is launched and the sign in is required. This Google sign in will
+ * connect the user to Firebase as well. After signing in the app will continue to the next
+ * activity.
+ */
 public class Splash extends AppCompatActivity {
 
   private static final int LOGIN_REQUEST_CODE = 1001;
@@ -97,6 +104,8 @@ public class Splash extends AppCompatActivity {
         });
   }
 }
+//    This code below is to make the activity sleep for 5 seconds and then do something.
+//      may still be useful later for splash screen. Not deleting yet. TP 8/2/19
 //
 //    Thread background = new Thread() {
 //      public void run() {

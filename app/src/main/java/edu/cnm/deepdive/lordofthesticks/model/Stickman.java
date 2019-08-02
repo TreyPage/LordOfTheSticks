@@ -23,8 +23,7 @@ public class Stickman {
   public Stickman() {}
 
   public Stickman(String name, float userId, int xLocation, int yLocation, int health,
-      boolean alive,
-      int kills, DocumentReference item) {
+      boolean alive, int kills, DocumentReference item) {
     this.name = name;
     this.userId = userId;
     this.xLocation = xLocation;

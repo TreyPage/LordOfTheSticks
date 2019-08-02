@@ -1,28 +1,14 @@
 package edu.cnm.deepdive.lordofthesticks;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.games.Games;
-import com.google.android.gms.games.GamesCallbackStatusCodes;
-import com.google.android.gms.games.RealTimeMultiplayerClient;
-import com.google.android.gms.games.multiplayer.Multiplayer;
-import com.google.android.gms.games.multiplayer.realtime.Room;
-import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
-import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import edu.cnm.deepdive.lordofthesticks.google.PlayServices;
 import edu.cnm.deepdive.lordofthesticks.viewmodel.MenuViewModel;
-import java.util.ArrayList;
 
 
 public class MenuScreen extends AppCompatActivity {

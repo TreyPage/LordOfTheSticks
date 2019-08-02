@@ -11,6 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import edu.cnm.deepdive.lordofthesticks.view.GameView;
+//import main.java.edu.cnm.deepdive.lordofthesticks.view.GameView;
 
 //import android.graphics.AvoidXfermode;
 

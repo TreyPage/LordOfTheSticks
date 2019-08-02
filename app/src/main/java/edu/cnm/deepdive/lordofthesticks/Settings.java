@@ -19,6 +19,7 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import androidx.core.app.NavUtils;
+import edu.cnm.deepdive.lordofthesticks.AppCompatPreferenceActivity;
 import java.util.List;
 
 /**

@@ -5,7 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".GamePlay">
+  tools:context="edu.cnm.deepdive.lordofthesticks.GamePlay">
 
   <edu.cnm.deepdive.lordofthesticks.view.GameView
     android:id="@+id/game_screen"

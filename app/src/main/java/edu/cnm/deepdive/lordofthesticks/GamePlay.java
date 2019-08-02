@@ -1,25 +1,34 @@
 package edu.cnm.deepdive.lordofthesticks;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.PixelFormat;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
-import android.util.Log;
-import android.view.SurfaceHolder;
-import androidx.annotation.DrawableRes;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-import edu.cnm.deepdive.lordofthesticks.view.GameView;
+import androidx.annotation.Nullable;
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import main.java.edu.cnm.deepdive.lordofthesticks.StickTest;
 
-public class GamePlay extends AppCompatActivity implements JoystickView.JoystickListener {
+//implements edu.cnm.deepdive.lordofthesticks.JoystickView.JoystickListener
 
 
-  // The view of the game!
+public class GamePlay extends AndroidApplication {
+
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+    initialize(new StickTest(), config);
+    super.onCreate(savedInstanceState);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+  }
+}
+  /*// The view of the game!
   GameView gameView;
 
   @Override
@@ -114,3 +123,4 @@ public class GamePlay extends AppCompatActivity implements JoystickView.Joystick
   }
 
 }
+*/

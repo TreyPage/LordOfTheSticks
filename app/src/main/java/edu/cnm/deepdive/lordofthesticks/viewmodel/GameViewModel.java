@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,19 +22,9 @@ public class GameViewModel extends AndroidViewModel {
   private MutableLiveData<DocumentSnapshot> snapshot = new MutableLiveData<>();
   private DocumentReference documentReference = null;
   private HashMap<String, Object> docData = new HashMap<>();
-  public String participantId;
-  public GoogleSignInAccount player;
-  public String roomId;
-
-  private Item bow = new Item(20, 20, false, mDatabase.collection("itemTypes").document("Bow"));
-  private Arena stickland = new Arena("Stickland", 1, 0, 1000, 0, 1000, 9000);
 
   public GameViewModel(@NonNull Application application) {
     super(application);
-    PlayServices services = new PlayServices();
-    participantId = services.getmMyParticipantId();
-    player = services.getPlayer();
-    roomId = services.getmRoomId();
   }
 
   public LiveData<DocumentSnapshot> getSnapshot() {
@@ -49,20 +38,8 @@ public class GameViewModel extends AndroidViewModel {
     );
   }
 
-  private HashMap setGame() {
-    docData.put("Stickman", new Stickman());
-    docData.put("Item1", bow);
-    docData.put("Arena", stickland);
-    docData.put("User", new User());
-    docData.put("Player", player);
-    docData.put("Room ID", roomId);
-    docData.put("Player ID", participantId);
-    return docData;
-  }
-
   public void postToArena() {
-    mDatabase.collection("arenas").document().set(setGame());
+    mDatabase.collection("arenas").document().set(PlayServices.informationDrop());
   }
-
 
 }

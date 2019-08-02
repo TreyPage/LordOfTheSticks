@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.lordofthesticks.google;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesActivityResultCodes;
@@ -24,8 +26,14 @@ import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
 import com.google.android.gms.tasks.OnSuccessListener;
 import edu.cnm.deepdive.lordofthesticks.GamePlay;
 import edu.cnm.deepdive.lordofthesticks.MenuScreen;
+import edu.cnm.deepdive.lordofthesticks.model.Arena;
+import edu.cnm.deepdive.lordofthesticks.model.Stickman;
+import edu.cnm.deepdive.lordofthesticks.model.User;
+import edu.cnm.deepdive.lordofthesticks.viewmodel.GameViewModel;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 //import android.app.Activity;
 
@@ -40,9 +48,9 @@ public class PlayServices extends AppCompatActivity {
   private final static int RC_WAITING_ROOM = 10002;
 
   // My participant ID in the currently active game
-  private String mMyParticipantId;
+  private static String mMyParticipantId;
 
-  private GoogleSignInAccount player = null;
+  private static GoogleSignInAccount player = null;
 
   private RealTimeMultiplayerClient mRealTimeMultiplayerClient = null;
 
@@ -51,7 +59,7 @@ public class PlayServices extends AppCompatActivity {
 
   // Room ID where the currently active game is taking place; null if we're
   // not playing.
-  private String mRoomId = null;
+  private static String mRoomId = null;
 
   // Holds the configuration of the current room.
   private RoomConfig mJoinedRoomConfig;
@@ -65,10 +73,13 @@ public class PlayServices extends AppCompatActivity {
   // at least 2 players required for our game
   private final static int MIN_PLAYERS = 2;
 
+  GameViewModel gameViewModel;
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
+    gameViewModel = ViewModelProviders.of(Objects.requireNonNull(this))
+        .get(GameViewModel.class);
     player = GoogleSignInService.getInstance().getAccount();
 
     // Client used to interact with the real time multiplayer system.
@@ -241,6 +252,7 @@ public class PlayServices extends AppCompatActivity {
       // Update UI and internal state based on room updates.
       if (code == GamesCallbackStatusCodes.OK && room != null) {
         Log.d(TAG, "Room " + mRoomId + " created.");
+        informationDrop();
         showWaitingRoom(room);
       } else {
         Log.w(TAG, "Error creating room: " + code);
@@ -273,6 +285,7 @@ public class PlayServices extends AppCompatActivity {
     public void onRoomConnected(int code, @Nullable Room room) {
       if (code == GamesCallbackStatusCodes.OK && room != null) {
         Log.d(TAG, "Room " + mRoomId + " connected.");
+        gameViewModel.postToArena();
       } else {
         Log.w(TAG, "Error connecting to room: " + code);
         // let screen go to sleep
@@ -322,16 +335,18 @@ public class PlayServices extends AppCompatActivity {
     startActivity(intent);
   }
 
-  public String getmMyParticipantId() {
-    return mMyParticipantId;
-  }
-
-  public GoogleSignInAccount getPlayer() {
-    return player;
-  }
-
-  public String getmRoomId() {
-    return mRoomId;
+  public static HashMap informationDrop() {
+    HashMap hashMap = new HashMap();
+    Arena arena = new Arena();
+    Stickman stickman = new Stickman();
+    User user = new User();
+    arena.setId(mRoomId);
+    stickman.setName(mMyParticipantId);
+    user.setName(player.toString());
+    hashMap.put("arena", arena);
+    hashMap.put("stickman", stickman);
+    hashMap.put("user", user);
+    return hashMap;
   }
 
 }

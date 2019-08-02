@@ -35,8 +35,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-//import android.app.Activity;
-
+/***
+ * PlayServices is doing the implementation and connection to Google Play Games. When this class
+ * is created it will immediately begin making the connection to Play Games and if the connection
+ * is successful it will launch the Google provided waiting room UI. Once the Auto-match criteria
+ * is met, a new activity is started. This activity will be the game.
+ */
 public class PlayServices extends AppCompatActivity {
   /*
    * API INTEGRATION SECTION. This section contains the code that integrates
@@ -73,7 +77,9 @@ public class PlayServices extends AppCompatActivity {
   // at least 2 players required for our game
   private final static int MIN_PLAYERS = 2;
 
-  GameViewModel gameViewModel;
+  private Room mRoom;
+
+  private GameViewModel gameViewModel;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -133,7 +139,6 @@ public class PlayServices extends AppCompatActivity {
     return false;
   }
 
-  private Room mRoom;
   private RoomStatusUpdateCallback mRoomStatusCallbackHandler = new RoomStatusUpdateCallback() {
     @Override
     public void onRoomConnecting(@Nullable Room room) {
@@ -335,6 +340,12 @@ public class PlayServices extends AppCompatActivity {
     startActivity(intent);
   }
 
+  /***
+   * informationDump is setting the user and room information to a hashmap that can be sent to
+   * firebase. It is called in this class when the room is created to set the info and then
+   * it is called in the GameViewModel to send the info.
+   * @return is a Hashmap for firebase purposes.
+   */
   public static HashMap informationDrop() {
     HashMap hashMap = new HashMap();
     Arena arena = new Arena();

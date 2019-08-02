@@ -4,9 +4,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import main.java.edu.cnm.deepdive.lordofthesticks.StickTest;
-
-//implements edu.cnm.deepdive.lordofthesticks.JoystickView.JoystickListener
 
 
 public class GamePlay extends AndroidApplication {

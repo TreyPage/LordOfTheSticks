@@ -10,18 +10,21 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import edu.cnm.deepdive.lordofthesticks.database.Firebase;
 import edu.cnm.deepdive.lordofthesticks.google.PlayServices;
-import edu.cnm.deepdive.lordofthesticks.model.Arena;
-import edu.cnm.deepdive.lordofthesticks.model.Item;
-import edu.cnm.deepdive.lordofthesticks.model.Stickman;
-import edu.cnm.deepdive.lordofthesticks.model.User;
 import java.util.HashMap;
+import java.util.Map;
 
 public class GameViewModel extends AndroidViewModel {
 
-  private static final FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
+  private final FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
   private MutableLiveData<DocumentSnapshot> snapshot = new MutableLiveData<>();
   private DocumentReference documentReference = null;
-  private HashMap<String, Object> docData = new HashMap<>();
+
+  public void setPath(String path) {
+    documentReference = mDatabase.collection("arenas").document(path);
+    new Firebase(documentReference, (documentSnapshot, e) ->
+        snapshot.postValue(documentSnapshot)
+    );
+  }
 
   public GameViewModel(@NonNull Application application) {
     super(application);

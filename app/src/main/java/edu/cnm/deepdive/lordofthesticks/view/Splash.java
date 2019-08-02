@@ -18,7 +18,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import edu.cnm.deepdive.lordofthesticks.MenuScreen;
 import edu.cnm.deepdive.lordofthesticks.R;
 import edu.cnm.deepdive.lordofthesticks.google.GoogleSignInService;
 

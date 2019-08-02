@@ -1,9 +1,12 @@
 package edu.cnm.deepdive.lordofthesticks;
 
-
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Currently doing nothing should eventually allow the user to purchase accessories for their
+ * stickman.
+ */
 public class Shop extends AppCompatActivity {
 
   @Override

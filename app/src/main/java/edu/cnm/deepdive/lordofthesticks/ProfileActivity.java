@@ -12,6 +12,10 @@ import com.google.firebase.auth.FirebaseUser;
 import edu.cnm.deepdive.lordofthesticks.google.GoogleSignInService;
 import edu.cnm.deepdive.lordofthesticks.view.Splash;
 
+/**
+ * The ProfileActivity is simply displaying the current signed in user and has a log out button
+ * that will send the user back to the splash screen to log in.
+ */
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
   //firebase auth object
@@ -72,9 +76,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     GoogleSignInService service = GoogleSignInService.getInstance();
     service.getClient().signOut().addOnCompleteListener((task) -> {
       service.setAccount(null);
-      Intent intent = new Intent(this, Splash.class);
-      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-      startActivity(intent);
     });
   }
 }

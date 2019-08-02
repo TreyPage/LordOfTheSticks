@@ -1,5 +1,10 @@
 package edu.cnm.deepdive.lordofthesticks.model;
 
+/**
+ * Arena is an Entity for database fulfillment. The needed information to store in firebase is
+ * identified here and there are getters and setters to allow other classes to assign and
+ * use the information.
+ */
 public class Arena {
 
   private String name;
@@ -17,16 +22,6 @@ public class Arena {
   private int timeLeft;
 
   public Arena() {}
-
-  public Arena(String name, String id, int bottom, int top, int left, int right, int timeLeft) {
-    this.name = name;
-    this.id = id;
-    this.bottom = bottom;
-    this.top = top;
-    this.left = left;
-    this.right = right;
-    this.timeLeft = timeLeft;
-  }
 
   public void setName(String name) {
     this.name = name;

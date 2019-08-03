@@ -48,7 +48,6 @@
     <activity
       android:name=".GamePlay"
       android:screenOrientation="landscape">
-
     </activity>
     <activity
       android:name=".view.MenuScreen"

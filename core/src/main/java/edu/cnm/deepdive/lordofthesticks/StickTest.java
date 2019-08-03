@@ -17,8 +17,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class StickTest extends ApplicationAdapter {
 
-  private static final float SCALE = 2.0f;
-  public static final float PIXEL_PER_METER = 32f;
+  private static final float SCALE = 2f;
+  public static final float PIXEL_PER_METER = 32;
   private static final float TIME_STEP = 1 / 60f;
   private static final int VELOCITY_ITERATIONS = 6;
   private static final int POSITION_ITERATIONS = 2;
@@ -36,8 +36,7 @@ public class StickTest extends ApplicationAdapter {
 
   @Override
   public void create() {
-    orthographicCamera = new OrthographicCamera();
-    orthographicCamera.setToOrtho(false, Gdx.graphics.getWidth() / SCALE, Gdx.graphics.getHeight() / SCALE);
+
     world = new World(new Vector2(VELOCITY_X, VELOCITY_Y), false);
     batch = new SpriteBatch();
     texture = new Texture(Player.PLAYER_IMG_PATH);
@@ -47,6 +46,8 @@ public class StickTest extends ApplicationAdapter {
     MapParser.parseMapLayers(world, tiledMap);
     player = new Player(world);
     world.setContactListener(new WorldContactListener());
+    orthographicCamera = new OrthographicCamera();
+    orthographicCamera.setToOrtho(false, Gdx.graphics.getWidth() / SCALE, Gdx.graphics.getHeight() / SCALE);
   }
 
   @Override

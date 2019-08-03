@@ -48,7 +48,11 @@
     <activity
       android:name=".GamePlay"
       android:screenOrientation="landscape">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
 
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
     </activity>
     <activity
       android:name=".MenuScreen"
@@ -58,11 +62,7 @@
       android:name=".view.Splash"
       android:screenOrientation="landscape"
       tools:ignore="ExtraText">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
+ // add intent back here
     </activity>
 
     <activity

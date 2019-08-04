@@ -17,6 +17,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+ * Class that contains all of the game play elements of the game, to create the game and render the animations and view.
+ */
 public class StickTest extends ApplicationAdapter {
 
   private static final float SCALE = 1.5f;
@@ -55,7 +58,7 @@ public class StickTest extends ApplicationAdapter {
     MapParser.parseMapLayers(world, tiledMap);
     player = new Player(world);
     world.setContactListener(new WorldContactListener());
-    
+
   }
 
   @Override
@@ -65,12 +68,22 @@ public class StickTest extends ApplicationAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     tiledMapRenderer.render();
     batch.setProjectionMatrix(orthographicCamera.combined);
-    batch.begin();
-    // All drawing goes in here! Will have to add in the crap here. The texture comes first, then x and y coordinates, then width then height.
 
-    batch.draw(texture, player.getBody().getPosition().x * PIXEL_PER_METER - (texture.getWidth() / 4),
-        player.getBody().getPosition().y * PIXEL_PER_METER - (texture.getHeight() / 4), 60f, 150f);
-    batch.end();
+
+
+
+      batch.begin();
+      // All drawing goes in here! Will have to add in the crap here. The texture comes first, then x and y coordinates, then width then height.
+
+      batch.draw(texture,
+          player.getBody().getPosition().x * PIXEL_PER_METER - (texture.getWidth() / 4),
+          player.getBody().getPosition().y * PIXEL_PER_METER - (texture.getHeight() / 4), 65f,
+          150f);
+
+      batch.end();
+
+//Player.getBoxSize() / StickTest.PIXEL_PER_METER / 1.1f , Player.getBoxSize() / StickTest.PIXEL_PER_METER * 2.4f
+    //
   }
 
   private void update() {
@@ -109,21 +122,23 @@ public class StickTest extends ApplicationAdapter {
   private void inputUpdate() {
     int horizontalForce = 0;
     boolean isJumping = false;
+    boolean isMovingRight = false;
     if (Gdx.input.isTouched()) {
       Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
       touchPos = orthographicCamera.unproject(touchPos);
       if (touchPos.x / PIXEL_PER_METER > player.getBody().getPosition().x)
         horizontalForce += 1;
+      isMovingRight = true;
       if (touchPos.x / PIXEL_PER_METER < player.getBody().getPosition().x)
         horizontalForce -= 1;
       if (touchPos.y / PIXEL_PER_METER > player.getBody().getPosition().y && !player.isJumping())
         isJumping = true;
     }
-    playerUpdate(horizontalForce, isJumping);
+    playerUpdate(horizontalForce, isJumping, isMovingRight);
   }
 
 
-  private void playerUpdate(int horizontalForce, boolean isJumping) {
+  private void playerUpdate(int horizontalForce, boolean isJumping, boolean isMovingRight) {
     if (player.isDead()) {
       world.destroyBody(player.getBody());
       player = new Player(world);

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import edu.cnm.deepdive.lordofthesticks.gameplay.StickTest;
 
 /**
  * The GamePlay class is called after PlayServices completes the matchmaking process and puts the

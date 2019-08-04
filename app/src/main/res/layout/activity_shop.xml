@@ -6,4 +6,11 @@
   android:layout_height="match_parent"
   tools:context=".Shop">
 
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:text="In Development"
+    android:textAlignment="center"
+    android:textSize="30sp"/>
+
 </androidx.appcompat.view.menu.ListMenuItemView>

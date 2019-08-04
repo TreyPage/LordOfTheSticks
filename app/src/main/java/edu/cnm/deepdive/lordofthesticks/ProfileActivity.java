@@ -9,7 +9,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import edu.cnm.deepdive.lordofthesticks.database.Firebase;
 import edu.cnm.deepdive.lordofthesticks.google.GoogleSignInService;
+import edu.cnm.deepdive.lordofthesticks.google.PlayServices;
 import edu.cnm.deepdive.lordofthesticks.view.Splash;
 
 /**
@@ -23,6 +25,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
   //view objects
   private TextView textViewUserEmail;
+  private TextView lastTotalParticipants;
+  private TextView lastRoom;
+
   private Button buttonLogout;
 
 
@@ -48,6 +53,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     //initializing views
     textViewUserEmail = findViewById(R.id.textViewUserEmail);
+    lastRoom = findViewById(R.id.lastRoom);
+    lastTotalParticipants = findViewById(R.id.lastTotalParticipants);
     buttonLogout = findViewById(R.id.buttonLogout);
 
     //displaying logged in user name
@@ -55,6 +62,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     //adding listener to button
     buttonLogout.setOnClickListener(this);
+    String lastRoomText = PlayServices.roomInfo();
+    lastRoom.setText(lastRoomText);
   }
 
   @Override
@@ -62,7 +71,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     //if logout is pressed
     if (view == buttonLogout) {
       //logging out the user
-      firebaseAuth.signOut();
       signOut();
       //closing activity
       finish();
@@ -74,6 +82,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
   private void signOut() {
     GoogleSignInService service = GoogleSignInService.getInstance();
+    firebaseAuth.signOut();
     service.getClient().signOut().addOnCompleteListener((task) -> {
       service.setAccount(null);
     });

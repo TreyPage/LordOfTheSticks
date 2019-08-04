@@ -106,6 +106,7 @@ public class Splash extends AppCompatActivity {
         });
   }
 }
+
 //    This code below is to make the activity sleep for 5 seconds and then do something.
 //      may still be useful later for splash screen. Not deleting yet. TP 8/2/19
 //

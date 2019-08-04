@@ -24,10 +24,10 @@ import com.google.android.gms.games.multiplayer.realtime.RoomStatusUpdateCallbac
 import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
 import com.google.android.gms.tasks.OnSuccessListener;
 import edu.cnm.deepdive.lordofthesticks.GamePlay;
-import edu.cnm.deepdive.lordofthesticks.view.MenuScreen;
 import edu.cnm.deepdive.lordofthesticks.model.Arena;
 import edu.cnm.deepdive.lordofthesticks.model.Stickman;
 import edu.cnm.deepdive.lordofthesticks.model.User;
+import edu.cnm.deepdive.lordofthesticks.view.MenuScreen;
 import edu.cnm.deepdive.lordofthesticks.viewmodel.GameViewModel;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +69,7 @@ public class PlayServices extends AppCompatActivity {
   private RoomConfig mJoinedRoomConfig;
 
   // The participants in the currently active game
-  ArrayList<Participant> mParticipants = null;
+  private static ArrayList<Participant> mParticipants = null;
 
   // are we already playing?
   private boolean mPlaying = false;
@@ -87,7 +87,7 @@ public class PlayServices extends AppCompatActivity {
    * onCreate is going to do the setup for the entire class. It assigns the needed information to
    * gameViewModel, player, and mRealTimeMultiplayerClient. These 3 variables are necessary in a
    * number of places throughout the class. It then calls the method startQuickGame() in order to
-   * start the process of creating and joing a game via google play games.
+   * start the process of creating and joining a game via google play games.
    */
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -100,14 +100,13 @@ public class PlayServices extends AppCompatActivity {
     mRealTimeMultiplayerClient = Games
         .getRealTimeMultiplayerClient(this, player);
 
-    //TODO switch to correct screen
     startQuickGame();
   }
 
   private void startQuickGame() {
     // auto-match criteria to invite one random automatch opponent.
     // You can also specify more opponents (up to 3).
-    Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(1, 1, 0);
+    Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(2, 7, 0);
 
     // build the room config:
     RoomConfig roomConfig =
@@ -261,10 +260,11 @@ public class PlayServices extends AppCompatActivity {
   private RoomUpdateCallback mRoomUpdateCallback = new RoomUpdateCallback() {
     @Override
     public void onRoomCreated(int code, @Nullable Room room) {
-      mRoomId = room.getRoomId();
+
       // Update UI and internal state based on room updates.
       if (code == GamesCallbackStatusCodes.OK && room != null) {
         Log.d(TAG, "Room " + mRoomId + " created.");
+        mRoomId = room.getRoomId();
         informationDrop();
         showWaitingRoom(room);
       } else {
@@ -298,6 +298,7 @@ public class PlayServices extends AppCompatActivity {
     public void onRoomConnected(int code, @Nullable Room room) {
       if (code == GamesCallbackStatusCodes.OK && room != null) {
         Log.d(TAG, "Room " + mRoomId + " connected.");
+        mParticipants = room.getParticipants();
         gameViewModel.postToArena();
       } else {
         Log.w(TAG, "Error connecting to room: " + code);
@@ -310,7 +311,7 @@ public class PlayServices extends AppCompatActivity {
 
   private void showWaitingRoom(Room room) {
     Games.getRealTimeMultiplayerClient(this, player)
-        .getWaitingRoomIntent(room, 2)
+        .getWaitingRoomIntent(room, 3)
         .addOnSuccessListener(new OnSuccessListener<Intent>() {
           @Override
           public void onSuccess(Intent intent) {
@@ -326,7 +327,23 @@ public class PlayServices extends AppCompatActivity {
 
       if (resultCode == Activity.RESULT_OK) {
         goToAnotherScreen(GamePlay.class);
-        //FIXME Start the game!
+        Thread background = new Thread() {
+          public void run() {
+            try {
+              // Thread will sleep for 5 seconds
+              sleep(30000 * 1000);
+              // After 5 seconds redirect to another intent
+              Intent intent = new Intent(getBaseContext(), MenuScreen.class);
+              startActivity(intent);
+              //Switch activity
+              finish();
+            } catch (Exception e) {
+              // Do nothing?? maybe
+            }
+          }
+        };
+        // start thread
+        background.start();
       } else if (resultCode == Activity.RESULT_CANCELED
           || resultCode == GamesActivityResultCodes.RESULT_LEFT_ROOM) {
         // Waiting room was dismissed with the back button. The meaning of this
@@ -368,5 +385,14 @@ public class PlayServices extends AppCompatActivity {
     hashMap.put("user", user);
     return hashMap;
   }
+
+  public static String roomInfo() {
+    if (mParticipants == null) {
+      return String.format("The last room ID was: %s\nThe amount of players was: %o", mRoomId, 0);
+    } else {
+      return String.format("The last room ID was: %s\nThe amount of players was: %o", mRoomId, mParticipants.size());
+    }
+  }
+
 
 }

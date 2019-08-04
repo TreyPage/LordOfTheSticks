@@ -28,7 +28,7 @@ public class MenuScreen extends AppCompatActivity {
     FloatingActionButton playButton = findViewById(R.id.menu_play);
     FloatingActionButton settingsButton = findViewById(R.id.menu_settings);
     FloatingActionButton shopButton = findViewById(R.id.menu_cart);
-    FloatingActionButton helpButton = findViewById(R.id.menu_help);
+    FloatingActionButton profileButton = findViewById(R.id.menu_profile);
 
     firebaseText();
 
@@ -39,6 +39,7 @@ public class MenuScreen extends AppCompatActivity {
         startActivity(intent);
       }
     });
+
     settingsButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -46,6 +47,7 @@ public class MenuScreen extends AppCompatActivity {
         startActivity(intent);
       }
     });
+
     shopButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -53,10 +55,10 @@ public class MenuScreen extends AppCompatActivity {
         startActivity(intent);
       }
     });
-    helpButton.setOnClickListener(new View.OnClickListener() {
+
+    profileButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        // TODO should give a pop up or snackbar of some kind with how to play.
         Intent intent = new Intent(view.getContext(), ProfileActivity.class);
         startActivity(intent);
       }

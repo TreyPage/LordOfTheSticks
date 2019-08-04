@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.lordofthesticks.gameplay;
+package edu.cnm.deepdive.lordofthesticks;
 
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -14,13 +14,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class StickTest extends ApplicationAdapter {
 
-  private static final float SCALE = 1.5f;
-  public static final float PIXEL_PER_METER = 32f;
+  private static final float SCALE = 2f;
+  public static final float PIXEL_PER_METER = 32;
   private static final float TIME_STEP = 1 / 60f;
   private static final int VELOCITY_ITERATIONS = 6;
   private static final int POSITION_ITERATIONS = 2;
@@ -29,7 +27,6 @@ public class StickTest extends ApplicationAdapter {
   private static final String MAP_PATH = "map/GameMap.tmx";
   private OrthographicCamera orthographicCamera;
   private Box2DDebugRenderer box2DDebugRenderer;
-  private Viewport gamePort;
   private World world;
   private Player player;
   private SpriteBatch batch;
@@ -37,15 +34,9 @@ public class StickTest extends ApplicationAdapter {
   private OrthogonalTiledMapRenderer tiledMapRenderer;
   private TiledMap tiledMap;
 
-  public static final int V_Height = 500;
-  public static final int V_WIDTH = 1000;
-
   @Override
   public void create() {
-    orthographicCamera = new OrthographicCamera();
-    gamePort = new FitViewport(StickTest.V_WIDTH,StickTest.V_Height,orthographicCamera);
-    orthographicCamera.position.set(gamePort.getWorldWidth() / 2,gamePort.getWorldHeight() /2 , 0);
-//    orthographicCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
     world = new World(new Vector2(VELOCITY_X, VELOCITY_Y), false);
     batch = new SpriteBatch();
     texture = new Texture(Player.PLAYER_IMG_PATH);
@@ -55,21 +46,21 @@ public class StickTest extends ApplicationAdapter {
     MapParser.parseMapLayers(world, tiledMap);
     player = new Player(world);
     world.setContactListener(new WorldContactListener());
-    
+    orthographicCamera = new OrthographicCamera();
+    orthographicCamera.setToOrtho(false, Gdx.graphics.getWidth() / SCALE, Gdx.graphics.getHeight() / SCALE);
   }
 
   @Override
   public void render() {
     update();
-    Gdx.gl.glClearColor(0.0f, 0.0f, 0f, 1f);
+    Gdx.gl.glClearColor(0.5f, 0.8f, 1f, 1f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     tiledMapRenderer.render();
-    batch.setProjectionMatrix(orthographicCamera.combined);
     batch.begin();
     // All drawing goes in here! Will have to add in the crap here. The texture comes first, then x and y coordinates, then width then height.
 
-    batch.draw(texture, player.getBody().getPosition().x * PIXEL_PER_METER - (texture.getWidth() / 4),
-        player.getBody().getPosition().y * PIXEL_PER_METER - (texture.getHeight() / 4), 60f, 150f);
+    batch.draw(texture, player.getBody().getPosition().x * PIXEL_PER_METER - (texture.getWidth() / 2),
+        player.getBody().getPosition().y * PIXEL_PER_METER - (texture.getHeight() / 2), 65f, 200f);
     batch.end();
   }
 
@@ -80,7 +71,7 @@ public class StickTest extends ApplicationAdapter {
 
     cameraUpdate();
     tiledMapRenderer.setView(orthographicCamera);
-
+    batch.setProjectionMatrix(orthographicCamera.combined);
   }
 
   private void cameraUpdate() {

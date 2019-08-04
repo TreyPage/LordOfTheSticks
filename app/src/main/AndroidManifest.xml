@@ -39,35 +39,31 @@
     <activity
       android:label="@string/title_activity_settings"
       android:name=".Settings"
-      android:parentActivityName=".MenuScreen"
+      android:parentActivityName=".view.MenuScreen"
       android:screenOrientation="landscape">
       <meta-data
         android:name="android.support.PARENT_ACTIVITY"
-        android:value="edu.cnm.deepdive.lordofthesticks.MenuScreen"/>
+        android:value="edu.cnm.deepdive.lordofthesticks.view.MenuScreen"/>
     </activity>
     <activity
       android:name=".GamePlay"
       android:screenOrientation="landscape">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
     </activity>
     <activity
-      android:name=".MenuScreen"
+      android:name=".view.MenuScreen"
       android:screenOrientation="landscape">
     </activity>
     <activity
       android:name=".view.Splash"
       android:screenOrientation="landscape"
       tools:ignore="ExtraText">
- // add intent back here
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
     </activity>
 
-    <activity
-      android:name=".MainActivity"
-      android:screenOrientation="landscape"/>
     <activity android:name=".google.PlayServices"/>
   </application>
 

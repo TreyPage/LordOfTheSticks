@@ -7,6 +7,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.games.Games;
 
+/**
+ * GoogleSignInService is handling the sign in options for google sign in. When a user clicks
+ * the sign in button an instance of the class is created the sign in options are requested and
+ * then the information is saved. There are getters and setters to allow other classes to access
+ * the information without creating a new instance.
+ */
 public class GoogleSignInService {
 
   private static Application context;

@@ -2,6 +2,11 @@ package edu.cnm.deepdive.lordofthesticks.model;
 
 import com.google.firebase.firestore.DocumentReference;
 
+/**
+ * Stickman is an Entity for database fulfillment. The needed information to store in firebase is
+ * identified here and there are getters and setters to allow other classes to assign and
+ * use the information.
+ */
 public class Stickman {
 
   private String name;
@@ -21,18 +26,6 @@ public class Stickman {
   private DocumentReference item;
 
   public Stickman() {}
-
-  public Stickman(String name, float userId, int xLocation, int yLocation, int health,
-      boolean alive, int kills, DocumentReference item) {
-    this.name = name;
-    this.userId = userId;
-    this.xLocation = xLocation;
-    this.yLocation = yLocation;
-    this.health = health;
-    this.alive = alive;
-    this.kills = kills;
-    this.item = item;
-  }
 
   public void setName(String name) {
     this.name = name;

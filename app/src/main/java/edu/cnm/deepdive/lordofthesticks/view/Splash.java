@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,7 +19,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import edu.cnm.deepdive.lordofthesticks.MenuScreen;
 import edu.cnm.deepdive.lordofthesticks.R;
 import edu.cnm.deepdive.lordofthesticks.google.GoogleSignInService;
 
@@ -74,7 +74,9 @@ public class Splash extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
 
-    findViewById(R.id.sign_in).setOnClickListener(
+    SignInButton button = findViewById(R.id.sign_in);
+    button.setColorScheme(0);
+    button.setOnClickListener(
         (view) -> signIn());
   }
 
@@ -104,6 +106,7 @@ public class Splash extends AppCompatActivity {
         });
   }
 }
+
 //    This code below is to make the activity sleep for 5 seconds and then do something.
 //      may still be useful later for splash screen. Not deleting yet. TP 8/2/19
 //

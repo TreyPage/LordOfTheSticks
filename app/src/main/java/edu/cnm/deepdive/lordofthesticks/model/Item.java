@@ -2,6 +2,11 @@ package edu.cnm.deepdive.lordofthesticks.model;
 
 import com.google.firebase.firestore.DocumentReference;
 
+/**
+ * Item is an Entity for database fulfillment. The needed information to store in firebase is
+ * identified here and there are getters and setters to allow other classes to assign and
+ * use the information.
+ */
 public class Item {
 
   private float xLocation;
@@ -12,14 +17,7 @@ public class Item {
 
   private DocumentReference itemType;
 
-  public Item(){}
-
-  public Item(float xLocation, float yLocation, boolean owned,
-      DocumentReference itemType) {
-    this.xLocation = xLocation;
-    this.yLocation = yLocation;
-    this.owned = owned;
-    this.itemType = itemType;
+  public Item() {
   }
 
   public void setxLocation(float xLocation) {

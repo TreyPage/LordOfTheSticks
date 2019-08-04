@@ -2,17 +2,18 @@ package edu.cnm.deepdive.lordofthesticks.model;
 
 import java.util.UUID;
 
+/**
+ * User is an Entity for database fulfillment. The needed information to store in firebase is
+ * identified here and there are getters and setters to allow other classes to assign and use the
+ * information.
+ */
 public class User {
 
   private UUID id;
 
   private String name;
 
-  public User() {}
-
-  public User(UUID id, String name) {
-    this.id = id;
-    this.name = name;
+  public User() {
   }
 
   public void setId(UUID id) {

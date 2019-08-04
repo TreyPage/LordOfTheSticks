@@ -24,13 +24,28 @@
       android:textAppearance="?android:attr/textAppearanceLarge"
       android:text="Large Text"
       android:id="@+id/textViewUserEmail"
-      android:layout_gravity="center_horizontal" />
+      android:layout_gravity="center_horizontal"/>
 
     <Button
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="Logout"
       android:id="@+id/buttonLogout"
-      android:layout_gravity="center_horizontal" />
+      android:layout_gravity="center_horizontal"/>
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:id="@+id/lastRoom"
+      android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:id="@+id/lastTotalParticipants"/>
+
+
   </LinearLayout>
 </RelativeLayout>

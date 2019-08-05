@@ -6,6 +6,10 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
+/**
+ * Class to work with {@link MapParser} to set information according to the various boundaries: {@link Ground}
+ * , {@link Bounds}, {@link DangerZone}
+ */
 public class WorldContactListener implements ContactListener {
 
   @Override

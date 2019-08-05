@@ -9,11 +9,20 @@ import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
+/**
+ * Class for looking through a {@link TiledMap} and getting specific layers to create boundaries and borders for the game.
+ */
 public class MapParser {
   private static final String MAP_LAYER_NAME_GROUND = "ground";
   private static final String MAP_LAYER_NAME_BOUNDS = "bounds";
   private static final String MAP_LAYER_NAME_DANGERS = "dangers";
 
+  /**
+   * Method that goes through the {@link com.badlogic.gdx.maps.Map} asset going through each layer then through each object layer and
+   * defining them using {@link Bounds}, {@link Ground} or {@link DangerZone} to give them specified qualities.
+   * @param world {@link World} to use for the map
+   * @param tiledMap {@link TiledMap} the map loaded into the assets folder
+   */
   public static void parseMapLayers(World world, TiledMap tiledMap) {
     for (MapLayer layer : tiledMap.getLayers()) {
       for (MapObject object : layer.getObjects()) {

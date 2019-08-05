@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * Class used in the {@link MapParser} to look through
+ * Class used in the {@link MapParser} to look through the map for specific layers named Bounds and set density to them for collision detection.
  */
 public class Bounds {
   private static final float DENSITY = 1.0f;

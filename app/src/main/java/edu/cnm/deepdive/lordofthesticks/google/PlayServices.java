@@ -1,3 +1,18 @@
+/*
+Copyright 2019 Brian Alexander, John Bailey, Austin DeWitt, Trey Page
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+*/
 package edu.cnm.deepdive.lordofthesticks.google;
 
 import android.app.Activity;
@@ -106,7 +121,7 @@ public class PlayServices extends AppCompatActivity {
   private void startQuickGame() {
     // auto-match criteria to invite one random automatch opponent.
     // You can also specify more opponents (up to 3).
-    Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(2, 7, 0);
+    Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(1, 7, 0);
 
     // build the room config:
     RoomConfig roomConfig =

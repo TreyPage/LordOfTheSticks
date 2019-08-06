@@ -21,6 +21,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -32,6 +33,11 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+ * Class hold all of the logic for the game by creating the {@link Player} setting the view through
+ * {@link #orthographicCamera} usage. By initially creating the {@link #world} then {@link Player} then rendering and unpdating
+ * everything by pulling in the {@link Player} and {@link MapParser} to create the game. 
+ */
 public class StickTest extends ApplicationAdapter {
 
   private static final float SCALE = 1.5f;
@@ -51,6 +57,7 @@ public class StickTest extends ApplicationAdapter {
   private Texture texture;
   private OrthogonalTiledMapRenderer tiledMapRenderer;
   private TiledMap tiledMap;
+  private BitmapFont font;
 
   public static final int V_Height = 500;
   public static final int V_WIDTH = 1000;
@@ -75,14 +82,20 @@ public class StickTest extends ApplicationAdapter {
 
   @Override
   public void render() {
+    String str = "Hello World";
+    font = new BitmapFont();
+
     update();
     Gdx.gl.glClearColor(0.0f, 0.0f, 0f, 1f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     tiledMapRenderer.render();
     batch.setProjectionMatrix(orthographicCamera.combined);
     batch.begin();
+    font.draw(batch, str, 10, 10);
+    batch.end();
+    batch.begin();
     // All drawing goes in here! Will have to add in the crap here. The texture comes first, then x and y coordinates, then width then height.
-
+//    font.draw(batch, str, 10, 10);
     batch.draw(texture, player.getBody().getPosition().x * PIXEL_PER_METER - (texture.getWidth() / 4),
         player.getBody().getPosition().y * PIXEL_PER_METER - (texture.getHeight() / 4), 60f, 150f);
     batch.end();

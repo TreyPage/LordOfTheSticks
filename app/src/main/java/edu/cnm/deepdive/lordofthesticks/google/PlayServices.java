@@ -401,13 +401,15 @@ public class PlayServices extends AppCompatActivity {
     return hashMap;
   }
 
+  /**
+   * roomInfo displays the information for the current room and the amount of participants.
+   */
   public static String roomInfo() {
     if (mParticipants == null) {
-      return String.format("The last room ID was: %s\nThe amount of players was: %o", mRoomId, 0);
+      return "";
     } else {
-      return String.format("The last room ID was: %s\nThe amount of players was: %o", mRoomId, mParticipants.size());
+      return String.format("The last room ID was: %s\nThe amount of players was: %o", mRoomId,
+          mParticipants.size());
     }
   }
-
-
 }

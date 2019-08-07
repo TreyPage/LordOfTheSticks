@@ -21,18 +21,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import edu.cnm.deepdive.lordofthesticks.database.Firebase;
 import edu.cnm.deepdive.lordofthesticks.google.GoogleSignInService;
 import edu.cnm.deepdive.lordofthesticks.google.PlayServices;
 import edu.cnm.deepdive.lordofthesticks.view.Splash;
 
 /**
- * The ProfileActivity is simply displaying the current signed in user and has a log out button
- * that will send the user back to the splash screen to log in.
+ * The ProfileActivity is simply displaying the current signed in user and has a log out button that
+ * will send the user back to the splash screen to log in.
  */
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 

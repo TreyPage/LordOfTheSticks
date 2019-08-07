@@ -25,8 +25,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import edu.cnm.deepdive.lordofthesticks.database.Firebase;
 import edu.cnm.deepdive.lordofthesticks.google.PlayServices;
-import java.util.HashMap;
-import java.util.Map;
 
 public class GameViewModel extends AndroidViewModel {
 

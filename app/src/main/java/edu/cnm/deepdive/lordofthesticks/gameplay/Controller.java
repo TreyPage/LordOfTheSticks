@@ -1,3 +1,18 @@
+/*
+Copyright 2019 Brian Alexander, John Bailey, Austin DeWitt, Trey Page
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+*/
 package edu.cnm.deepdive.lordofthesticks.gameplay;
 
 import com.badlogic.gdx.Gdx;
@@ -11,18 +26,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Controller {
-  Viewport viewport;
-  Stage stage;
-  boolean upPressed,downPressed, leftPressed, rightPressed;
-  OrthographicCamera cam;
+/**
+ * Controller creates a table on the game screen that is filled with an image and listens for
+ * touch.
+ */
+class Controller {
 
-  public Controller() {
+  private Viewport viewport;
+  private Stage stage;
+  private boolean upPressed, downPressed, leftPressed, rightPressed;
+  private OrthographicCamera cam;
+
+  Controller() {
     cam = new OrthographicCamera();
     viewport = new FitViewport(800, 480, cam);
-    stage = new Stage(viewport, StickTest.batch);
-
-
+    stage = new Stage(viewport, StickTest.spriteBatch);
     Table table = new Table();
     Table table2 = new Table();
     table.setFillParent(true);
@@ -91,8 +109,6 @@ public class Controller {
       }
     });
 
-
-
     table.add();
     table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight()).padLeft(50).padBottom(30);
     table.add();
@@ -101,34 +117,32 @@ public class Controller {
     table.add(upImg).growX().size(upImg.getWidth(), upImg.getHeight()).padLeft(200).padBottom(30);
     table.row().padBottom(15);
 
-
-
     stage.addActor(table);
     Gdx.input.setInputProcessor(stage);
   }
-  public void draw(){
+
+  void draw() {
     stage.draw();
-
-
   }
 
-  public boolean isUpPressed() {
+  boolean isUpPressed() {
     return upPressed;
   }
 
-  public boolean isDownPressed() {
+  boolean isDownPressed() {
     return downPressed;
   }
 
-  public boolean isLeftPressed() {
+  boolean isLeftPressed() {
     return leftPressed;
   }
 
-  public boolean isRightPressed() {
+  boolean isRightPressed() {
     return rightPressed;
   }
-  public void resize(int width, int height){
-    viewport.update(width,height);
+
+  void resize(int width, int height) {
+    viewport.update(width, height);
 
   }
 }

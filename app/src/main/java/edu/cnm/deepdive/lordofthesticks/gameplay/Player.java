@@ -27,41 +27,38 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class Player {
 
-
-
   private static final int BOX_SIZE = 38;
   private static final float PLAYER_DENSITY = 0.8f;
-  static final float JUMP_FORCE = 4500f;
+  static final float JUMP_FORCE = 9000f;
   static final float RUN_FORCE = 25f;
   static final String PLAYER_IMG_PATH = "stickman.png";
-  private static final float PLAYER_START_X = 8f;
-  private static final float PLAYER_START_Y = 18f;
+  private static final float PLAYER_START_X = 10f;
+  private static final float PLAYER_START_Y = 20f;
   private Body body;
   private boolean isJumping = false;
   private boolean isDead = false;
   private boolean isMoving = false;
 
-  public static int getBoxSize() {
-    return BOX_SIZE;
-  }
-
-
-  public void hit() {
+  void hit() {
     isDead = true;
   }
-  public void setJumping(boolean jumping) {
+
+  void setJumping(boolean jumping) {
     isJumping = jumping;
   }
-  public boolean isJumping() {
+
+  boolean isJumping() {
     return isJumping;
   }
-  public boolean isDead() {
+
+  boolean isDead() {
     return isDead;
   }
 
 
   /**
    * Constructor to take in a {@link #createBoxBody(World, float, float)} object
+   *
    * @param world {@link World}
    */
   public Player(World world) {
@@ -74,7 +71,8 @@ public class Player {
     bdef.type = BodyDef.BodyType.DynamicBody;
     bdef.position.set(x, y);
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(BOX_SIZE / StickTest.PIXEL_PER_METER / 1.1f , BOX_SIZE / StickTest.PIXEL_PER_METER * 2.4f);
+    shape.setAsBox(BOX_SIZE / StickTest.PIXEL_PER_METER / 2,
+        BOX_SIZE / StickTest.PIXEL_PER_METER / 2);
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
     fixtureDef.density = PLAYER_DENSITY;
@@ -84,9 +82,10 @@ public class Player {
 
   /**
    * Getter for getting the {@link Body}
+   *
    * @return {@link Body}
    */
-  public Body getBody() {
+  Body getBody() {
     return body;
   }
 }

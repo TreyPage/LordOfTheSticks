@@ -19,8 +19,8 @@ import com.google.firebase.firestore.DocumentReference;
 
 /**
  * Item is an Entity for database fulfillment. The needed information to store in firebase is
- * identified here and there are getters and setters to allow other classes to assign and
- * use the information.
+ * identified here and there are getters and setters to allow other classes to assign and use the
+ * information.
  */
 public class Item {
 

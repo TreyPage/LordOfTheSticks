@@ -25,16 +25,20 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * Class for looking through a {@link TiledMap} and getting specific layers to create boundaries and borders for the game.
+ * Class for looking through a {@link TiledMap} and getting specific layers to create boundaries and
+ * borders for the game.
  */
 public class MapParser {
+
   private static final String MAP_LAYER_NAME_GROUND = "ground";
   private static final String MAP_LAYER_NAME_BOUNDS = "bounds";
   private static final String MAP_LAYER_NAME_DANGERS = "dangers";
 
   /**
-   * Method that goes through the {@link com.badlogic.gdx.maps.Map} asset going through each layer then through each object layer and
-   * defining them using {@link Bounds}, {@link Ground} or {@link DangerZone} to give them specified qualities.
+   * Method that goes through the {@link com.badlogic.gdx.maps.Map} asset going through each layer
+   * then through each object layer and defining them using {@link Bounds}, {@link Ground} or {@link
+   * DangerZone} to give them specified qualities.
+   *
    * @param world {@link World} to use for the map
    * @param tiledMap {@link TiledMap} the map loaded into the assets folder
    */
@@ -47,15 +51,19 @@ public class MapParser {
         } else {
           continue;
         }
-        if (layer.getName().equals(MAP_LAYER_NAME_GROUND))
+        if (layer.getName().equals(MAP_LAYER_NAME_GROUND)) {
           new Ground(world, shape);
-        if (layer.getName().equals(MAP_LAYER_NAME_BOUNDS))
+        }
+        if (layer.getName().equals(MAP_LAYER_NAME_BOUNDS)) {
           new Bounds(world, shape);
-        if (layer.getName().equalsIgnoreCase(MAP_LAYER_NAME_DANGERS))
+        }
+        if (layer.getName().equalsIgnoreCase(MAP_LAYER_NAME_DANGERS)) {
           new DangerZone(world, shape);
+        }
       }
     }
   }
+
   private static ChainShape createPolyline(PolylineMapObject polyline) {
     float[] vertices = polyline.getPolyline().getTransformedVertices();
     Vector2[] worldVerticies = new Vector2[vertices.length / 2];

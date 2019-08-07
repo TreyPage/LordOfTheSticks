@@ -22,8 +22,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 /**
- * Class to work with {@link MapParser} to set information according to the various boundaries: {@link Ground}
- * , {@link Bounds}, {@link DangerZone}
+ * Class to work with {@link MapParser} to set information according to the various boundaries:
+ * {@link Ground} , {@link Bounds}, {@link DangerZone}
  */
 public class WorldContactListener implements ContactListener {
 
@@ -31,10 +31,12 @@ public class WorldContactListener implements ContactListener {
   public void beginContact(Contact cntct) {
     Fixture fa = cntct.getFixtureA();
     Fixture fb = cntct.getFixtureB();
-    if (fa == null || fb == null)
+    if (fa == null || fb == null) {
       return;
-    if (fa.getUserData() == null || fb.getUserData() == null)
+    }
+    if (fa.getUserData() == null || fb.getUserData() == null) {
       return;
+    }
     if (isGroundContact(fa, fb)) {
       Player player = (Player) fb.getUserData();
       player.setJumping(false);
@@ -50,10 +52,12 @@ public class WorldContactListener implements ContactListener {
   public void endContact(Contact cntct) {
     Fixture fa = cntct.getFixtureA();
     Fixture fb = cntct.getFixtureB();
-    if (fa == null || fb == null)
+    if (fa == null || fb == null) {
       return;
-    if (fa.getUserData() == null || fb.getUserData() == null)
+    }
+    if (fa.getUserData() == null || fb.getUserData() == null) {
       return;
+    }
     if (isGroundContact(fa, fb)) {
       Player player = (Player) fb.getUserData();
       player.setJumping(true);

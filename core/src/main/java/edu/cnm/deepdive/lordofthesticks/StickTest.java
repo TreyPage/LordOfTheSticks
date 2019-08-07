@@ -16,7 +16,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -24,7 +23,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class StickTest extends ApplicationAdapter implements ApplicationListener {
 
   private static final int FRAME_COLS = 2, FRAME_ROWS = 1;
-  private static final int FRAME_COLUMNS =14, FRAME_ACROSS = 1;
+  private static final int FRAME_COLUMNS =14, FRAME_ACROSS = 2;
   private static final float SCALE = 1.5f;
   public static final float PIXEL_PER_METER = 28f;
   private static final float TIME_STEP = 1 / 60f;
@@ -34,9 +33,11 @@ public class StickTest extends ApplicationAdapter implements ApplicationListener
   private static final float VELOCITY_X = 0;
   private static final String MAP_PATH = "map/GameMap.tmx";
   private OrthographicCamera orthographicCamera;
-  private Box2DDebugRenderer box2DDebugRenderer;
+  private OrthogonalTiledMapRenderer tiledMapRenderer;
   private Viewport gamePort;
+  private Box2DDebugRenderer box2DDebugRenderer;
   private World world;
+  private TiledMap tiledMap;
   private Player player;
   private SpriteBatch spriteBatch;
   private Texture stickman;
@@ -44,8 +45,6 @@ public class StickTest extends ApplicationAdapter implements ApplicationListener
   private Texture runLeftSheet;
   private Texture jumpLeftSheet;
   private Texture jumpRightSheet;
-  private OrthogonalTiledMapRenderer tiledMapRenderer;
-  private TiledMap tiledMap;
   private Animation<TextureRegion> runRightAnimation;
   private Animation<TextureRegion> runLeftAnimation;
   private Animation<TextureRegion> jumpLeftAnimation;
@@ -57,8 +56,6 @@ public class StickTest extends ApplicationAdapter implements ApplicationListener
   private TextureRegion jumpingRight;
   public static final int V_Height = 500;
   public static final int V_WIDTH = 1000;
-  private WorldContactListener worldContactListener = new WorldContactListener();
-
   @Override
   public void create() {
     orthographicCamera = new OrthographicCamera();
@@ -183,8 +180,7 @@ public class StickTest extends ApplicationAdapter implements ApplicationListener
 
   private void inputUpdate () {
       int horizontalForce = 0;
-      boolean isJumpingRight = false;
-      boolean isJumpingLeft = false;
+      boolean isJumping = false;
 
       if (!Gdx.input.isTouched()){
         notMoving();
@@ -194,55 +190,50 @@ public class StickTest extends ApplicationAdapter implements ApplicationListener
           touchPos = orthographicCamera.unproject(touchPos);
 
           if (touchPos.x / PIXEL_PER_METER > player.getBody().getPosition().x
-                  && !player.isJumpingRight()
           ) {
             horizontalForce += 1;
             movingRight();
-          } else if (touchPos.x / PIXEL_PER_METER < player.getBody().getPosition().x
-                  && !player.isJumpingLeft()
+
+        } else if (touchPos.x / PIXEL_PER_METER < player.getBody().getPosition().x
           ) {
             horizontalForce -= 1;
             movingLeft();
           }
-          if (touchPos.y / PIXEL_PER_METER > player.getBody().getPosition().y
-                  && !player.isJumpingRight())
-            isJumpingRight = true;
-            horizontalForce += 1; {
-            rightJump();
+
+          if (touchPos.y / PIXEL_PER_METER > player.getBody().getPosition().y)
+            isJumping = true;
+          {
+            horizontalForce += 1;
           }
-           if (touchPos.y / PIXEL_PER_METER > player.getBody().getPosition().y
-                   && !player.isJumpingLeft())
-            isJumpingLeft = true;
-            horizontalForce -= 1; {
-            leftJump();
+          if (touchPos.y / PIXEL_PER_METER > player.getBody().getPosition().y &&
+                  player.isJumping())
+            isJumping = true;
+          leftJump();
+          {
+            horizontalForce -= 1;
           }
 
         }
-        playerUpdate(horizontalForce, isJumpingRight, isJumpingLeft);
+
+        playerUpdate(horizontalForce, isJumping);
 
   }
 
 
-
-
-    private void playerUpdate ( int horizontalForce, boolean isJumpingRight, boolean isJumpingLeft){
+    private void playerUpdate ( int horizontalForce, boolean isJumping){
       if (player.isDead()) {
         world.destroyBody(player.getBody());
         player = new Player(world);
       }
-      if (isJumpingRight) {
+      if (isJumping) {
         player.getBody().applyForceToCenter(0, Player.JUMP_FORCE, false);
         player.getBody().setLinearVelocity(horizontalForce * Player.RUN_FORCE, player.getBody().getLinearVelocity().y);
-        rightJump();
-      }
-      else if (isJumpingLeft) {
-        player.getBody().applyForceToCenter(0, Player.JUMP_FORCE, false);
-        player.getBody().setLinearVelocity(horizontalForce * Player.RUN_FORCE, player.getBody().getLinearVelocity().y);
-        leftJump();
+
       } else {
         player.getBody().setLinearVelocity(horizontalForce * Player.RUN_FORCE, player.getBody().getLinearVelocity().y);
-      }
     }
+  }
+
 
   private void notMoving() {
     spriteBatch.begin();
@@ -269,8 +260,8 @@ public class StickTest extends ApplicationAdapter implements ApplicationListener
 
   private void rightJump(){
     spriteBatch.begin();
-    jumpingRight = jumpRightAnimation.getKeyFrame(stateTime, true);
-    spriteBatch.draw(jumpingRight, player.getBody().getPosition().x * PIXEL_PER_METER - (jumpingRight.getTexture().getWidth()) + 190,
+    jumpingRight = jumpRightAnimation.getKeyFrame(stateTime, false);
+    spriteBatch.draw(jumpingRight, player.getBody().getPosition().x * PIXEL_PER_METER - (jumpingRight.getTexture().getWidth() / 4) + 190,
             player.getBody().getPosition().y * PIXEL_PER_METER - (jumpingRight.getTexture().getHeight() / 4), 150f, 250f);
     spriteBatch.end();
   }

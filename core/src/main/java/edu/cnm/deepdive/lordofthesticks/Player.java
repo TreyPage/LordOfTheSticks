@@ -14,25 +14,19 @@ public class Player {
   private static final float PLAYER_START_X = 10f;
   private static final float PLAYER_START_Y = 20f;
   private Body body;
-  public boolean isJumpingRight = false;
-  public boolean isJumpingLeft = false;
+  public boolean isJumpingHigh = false;
   private boolean isDead = false;
 
   public void hit() {
     isDead = true;
   }
-  public void setJumpingRight(boolean jumpingRight) {
-    isJumpingRight = jumpingRight;
+  public void setJumping(boolean jumping) {
+    isJumpingHigh = jumping;
   }
-  public void setJumpingLeft(boolean jumpingLeft) {
-    isJumpingLeft = jumpingLeft;
+  public boolean isJumping() {
+    return isJumpingHigh;
   }
-  public boolean isJumpingRight() {
-    return isJumpingRight;
-  }
-  public boolean isJumpingLeft() {
-    return isJumpingLeft;
-  }
+
   public boolean isDead() {
     return isDead;
   }
@@ -49,7 +43,7 @@ public class Player {
     bdef.type = BodyDef.BodyType.DynamicBody;
     bdef.position.set(x, y);
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(BOX_SIZE / StickTest.PIXEL_PER_METER / 4, BOX_SIZE / StickTest.PIXEL_PER_METER / 4);
+    shape.setAsBox(BOX_SIZE / StickTest.PIXEL_PER_METER / 2, BOX_SIZE / StickTest.PIXEL_PER_METER / 2);
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
     fixtureDef.density = PLAYER_DENSITY;

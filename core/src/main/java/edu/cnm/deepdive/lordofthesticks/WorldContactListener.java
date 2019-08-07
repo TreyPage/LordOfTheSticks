@@ -19,18 +19,16 @@ public class WorldContactListener implements ContactListener {
       return;
     if (isGroundContact(fa, fb)) {
       Player player = (Player) fb.getUserData();
-      player.setJumpingRight(false);
-      player.setJumpingLeft(false);
+      player.setJumping(false);
+
     }
     if (isGroundContact(fa, fb)){
       Player player = (Player) fb.getUserData();
-      player.setJumpingLeft(false);
-      player.setJumpingRight(false);
+      player.setJumping(false);
     }
     if (isDangerContact(fa, fb)) {
       Player player = (Player) fb.getUserData();
-      player.setJumpingRight(false);
-      player.setJumpingLeft(false);
+      player.setJumping(false);
       player.hit();
     }
   }
@@ -45,16 +43,15 @@ public class WorldContactListener implements ContactListener {
       return;
     if (isGroundContact(fa, fb)) {
       Player player = (Player) fb.getUserData();
-      player.setJumpingRight(true);
+      player.setJumping(true);
     }
     if (isGroundContact(fa, fb)) {
       Player player = (Player) fb.getUserData();
-      player.setJumpingLeft(true);
+      player.setJumping(true);
     }
     if (isDangerContact(fa, fb)) {
       Player player = (Player) fb.getUserData();
-      player.setJumpingRight(true);
-      player.setJumpingLeft(true);
+      player.setJumping(true);
     }
   }
 

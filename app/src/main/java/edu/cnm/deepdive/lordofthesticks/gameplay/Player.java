@@ -26,32 +26,44 @@ import com.badlogic.gdx.physics.box2d.World;
  * controllers throughout the game.
  */
 public class Player {
-  private static final int BOX_SIZE = 32;
-  private static final float PLAYER_DENSITY = 1.0f;
-  public static final float JUMP_FORCE = 800f;
-  public static final float RUN_FORCE = 25f;
-  private static final float PLAYER_START_X = 10f;
-  private static final float PLAYER_START_Y = 20f;
+
+
+
+  private static final int BOX_SIZE = 38;
+  private static final float PLAYER_DENSITY = 0.8f;
+  static final float JUMP_FORCE = 4500f;
+  static final float RUN_FORCE = 25f;
+  static final String PLAYER_IMG_PATH = "stickman.png";
+  private static final float PLAYER_START_X = 8f;
+  private static final float PLAYER_START_Y = 18f;
   private Body body;
-  public boolean isJumpingHigh = false;
+  private boolean isJumping = false;
   private boolean isDead = false;
+  private boolean isMoving = false;
+
+  public static int getBoxSize() {
+    return BOX_SIZE;
+  }
+
 
   public void hit() {
     isDead = true;
   }
   public void setJumping(boolean jumping) {
-    isJumpingHigh = jumping;
+    isJumping = jumping;
   }
   public boolean isJumping() {
-    return isJumpingHigh;
+    return isJumping;
   }
-
   public boolean isDead() {
     return isDead;
   }
 
 
-
+  /**
+   * Constructor to take in a {@link #createBoxBody(World, float, float)} object
+   * @param world {@link World}
+   */
   public Player(World world) {
     createBoxBody(world, PLAYER_START_X, PLAYER_START_Y);
   }
@@ -62,13 +74,18 @@ public class Player {
     bdef.type = BodyDef.BodyType.DynamicBody;
     bdef.position.set(x, y);
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(BOX_SIZE / StickTest.PIXEL_PER_METER / 2, BOX_SIZE / StickTest.PIXEL_PER_METER / 2);
+    shape.setAsBox(BOX_SIZE / StickTest.PIXEL_PER_METER / 1.1f , BOX_SIZE / StickTest.PIXEL_PER_METER * 2.4f);
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
     fixtureDef.density = PLAYER_DENSITY;
     body = world.createBody(bdef);
     body.createFixture(fixtureDef).setUserData(this);
   }
+
+  /**
+   * Getter for getting the {@link Body}
+   * @return {@link Body}
+   */
   public Body getBody() {
     return body;
   }

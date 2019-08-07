@@ -31,9 +31,9 @@ public class Player {
 
   private static final int BOX_SIZE = 38;
   private static final float PLAYER_DENSITY = 0.8f;
-  public static final float JUMP_FORCE = 4500f;
-  public static final float RUN_FORCE = 25f;
-  public static final String PLAYER_IMG_PATH = "stickman.png";
+  static final float JUMP_FORCE = 4500f;
+  static final float RUN_FORCE = 25f;
+  static final String PLAYER_IMG_PATH = "stickman.png";
   private static final float PLAYER_START_X = 8f;
   private static final float PLAYER_START_Y = 18f;
   private Body body;

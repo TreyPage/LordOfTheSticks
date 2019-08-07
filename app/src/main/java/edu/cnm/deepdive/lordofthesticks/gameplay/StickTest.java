@@ -36,7 +36,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 /**
  * Class hold all of the logic for the game by creating the {@link Player} setting the view through
  * {@link #orthographicCamera} usage. By initially creating the {@link #world} then {@link Player} then rendering and unpdating
- * everything by pulling in the {@link Player} and {@link MapParser} to create the game. 
+ * everything by pulling in the {@link Player} and {@link MapParser} to create the game.
  */
 public class StickTest extends ApplicationAdapter {
 
